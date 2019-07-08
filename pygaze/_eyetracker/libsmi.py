@@ -39,7 +39,7 @@ except:
 import copy
 import math
 
-from iViewXAPI import  *
+from pygaze._eyetracker.iViewXAPI import  *
 
 
 # function for identyfing errors
