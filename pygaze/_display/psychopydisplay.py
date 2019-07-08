@@ -25,6 +25,7 @@ from pygaze._misc.misc import rgb2psychorgb
 from pygaze.libtime import clock
 #from pygaze._display.basedisplay import BaseDisplay
 
+import pygame
 from psychopy.visual import Window
 
 # we try importing the copy_docstr function, but as we do not really need it
@@ -63,17 +64,17 @@ class PsychoPyDisplay:
                 self.mousevis = False
                 self.monitor = monitor
 
-                # create window
-                pygaze.expdisplay = Window(size=self.dispsize, pos=None,
-                        color=rgb2psychorgb(self.bgc), colorSpace='rgb',
-                        fullscr=settings.FULLSCREEN, monitor=self.monitor, 
-                        screen=self.screennr, units='pix')
-                # set mouse visibility
-                pygaze.expdisplay.setMouseVisible(self.mousevis)
-                # get screen in window
-                if screen:
-                    for s in screen.screen:
-                        s.draw()
+				# create window
+				pygaze.expdisplay = Window(size=self.dispsize, pos=None,
+						color=rgb2psychorgb(self.bgc), colorSpace='rgb',
+						fullscr=settings.FULLSCREEN, monitor=self.monitor, 
+						screen=self.screennr, units='pix', winType='pygame')
+				# set mouse visibility
+				pygaze.expdisplay.setMouseVisible(self.mousevis)
+				# get screen in window
+				if screen:
+					for s in screen.screen:
+						s.draw()
 
         def show(self):
 
