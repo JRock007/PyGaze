@@ -58,7 +58,9 @@ def data_files():
 		("share/opensesame_plugins/pygaze_stop_recording",
 			files("opensesame_plugins/pygaze_stop_recording/*")),
 		("share/opensesame_plugins/pygaze_wait",
-			files("opensesame_plugins/pygaze_wait/*"))
+			files("opensesame_plugins/pygaze_wait/*")),
+		("pygaze/resources/fonts",
+			files("resources/fonts/*"))
 		]
 
 setup(
