@@ -62,10 +62,10 @@ class CEvent(Structure):
 	("positionY", c_double)]
 
 class CAccuracy(Structure):
-	_fields_ = [("deviationLX",c_double),
-				("deviationLY",c_double),				
-				("deviationRX",c_double),
-				("deviationRY",c_double)]
+	_fields_ = [("deviationLX", c_double),
+				("deviationLY", c_double),				
+				("deviationRX", c_double),
+				("deviationRY", c_double)]
 				
 #===========================
 #		Loading iViewX.dll 
@@ -80,10 +80,10 @@ iViewXAPI = windll.LoadLibrary("iViewXAPI.dll")
 
 systemData = CSystem(0, 0, 0, 0, 0, 0, 0, 0)
 calibrationData = CCalibration(5, 1, 0, 0, 1, 20, 239, 1, 15, b"")
-leftEye = CEye(0,0,0)
-rightEye = CEye(0,0,0)
-sampleData = CSample(0,leftEye,rightEye,0)
+leftEye = CEye(0, 0, 0)
+rightEye = CEye(0, 0, 0)
+sampleData = CSample(0, leftEye, rightEye, 0)
 eventData = CEvent(b'F', b'L', 0, 0, 0, 0, 0)
-accuracyData = CAccuracy(0,0,0,0)
+accuracyData = CAccuracy(0, 0, 0, 0)
 
 

@@ -91,7 +91,7 @@ class PsychoPyMouse(BaseMouse):
 		self.mouse.setVisible(self.visible)
 
 
-	def set_pos(self, pos=(0,0)):
+	def set_pos(self, pos=(0, 0)):
 
 		# See _mouse.basemouse.BaseMouse
 
@@ -122,7 +122,7 @@ class PsychoPyMouse(BaseMouse):
 			time = clock.get_time()
 			pressed = self.mouse.getPressed()
 			if sum(pressed) > 0:
-				for b in range(0,len(pressed)):
+				for b in range(0, len(pressed)):
 					if pressed[b] == 1:
 						if mousebuttonlist == None or b+1 in mousebuttonlist:
 							return b+1, self.get_pos(), time

@@ -21,9 +21,9 @@ LOGFILE = os.path.join(DATADIR, LOGFILENAME)
 # for 'pygame' if you experience trouble using PsychoPy
 DISPTYPE = 'psychopy'
 # the DISPSIZE is the monitor resolution, e.g. (1024,768)
-DISPSIZE = (1024,768)
+DISPSIZE = (1024, 768)
 # the SCREENSIZE is the physical screen size in centimeters, e.g. (39.9,29.9)
-SCREENSIZE = (39.9,29.9)
+SCREENSIZE = (39.9, 29.9)
 # the SCREENDIST is the distance in centimeters between the participant and the
 # display
 SCREENDIST = 60.0
@@ -34,8 +34,8 @@ FULLSCREEN = True
 # which contain three values between 0 and 255, representing the intensity of
 # Red, Green, and Blue respectively, e.g. (0,0,0) for black, (255,255,255) for
 # white, or (255,0,0) for the brightest red
-BGC = (0,0,0)
-FGC = (255,255,255)
+BGC = (0, 0, 0)
+FGC = (255, 255, 255)
 # the TEXTSIZE determines the size of the text in the experiment
 TEXTSIZE = 24
 

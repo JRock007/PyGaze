@@ -8,8 +8,8 @@ exp = experiment(string=src)
 exp.init_display()
 defaults.DISPTYPE = 'opensesame'
 defaults.osexperiment = exp
-defaults.FGC = 255,255,255
-defaults.BGC = 0,0,0
+defaults.FGC = 255, 255, 255
+defaults.BGC = 0, 0, 0
 w, h = defaults.DISPSIZE = exp.resolution()
 
 # # # # #
@@ -22,30 +22,30 @@ tracker = EyeTracker(disp, trackertype='dummy')
 tracker.calibrate()
 
 # create keyboard object
-kb = Keyboard(disptype='opensesame', keylist=['left','right', \
+kb = Keyboard(disptype='opensesame', keylist=['left', 'right', \
 	'escape'], timeout=2000)
 
 # create screens
 fixscreen = Screen(disptype='opensesame')
-fixscreen.draw_fixation(fixtype='cross',pw=2)
+fixscreen.draw_fixation(fixtype='cross', pw=2)
 targetscreens = {}
 targetscreens['left'] = Screen(disptype='opensesame')
-targetscreens['left'].draw_circle(pos=(w*0.25,h/2), fill=True)
+targetscreens['left'].draw_circle(pos=(w*0.25, h/2), fill=True)
 targetscreens['right'] = Screen(disptype='opensesame')
-targetscreens['right'].draw_circle(pos=(w*0.75,h/2), fill=True)
+targetscreens['right'].draw_circle(pos=(w*0.75, h/2), fill=True)
 feedbackscreens = {}
 feedbackscreens[1] = Screen(disptype='opensesame')
-feedbackscreens[1].draw_text(text='correct', colour=(0,255,0))
+feedbackscreens[1].draw_text(text='correct', colour=(0, 255, 0))
 feedbackscreens[0] = Screen(disptype='opensesame')
-feedbackscreens[0].draw_text(text='incorrect', colour=(255,0,0))
+feedbackscreens[0].draw_text(text='incorrect', colour=(255, 0, 0))
 
 # # # # #
 # run the experiment
 
 # run 20 trials
-for trialnr in range(1,21):
+for trialnr in range(1, 21):
 	# prepare trial
-	trialtype = random.choice(['left','right'])
+	trialtype = random.choice(['left', 'right'])
 	
 	# Drift correction
 	tracker.drift_correction()

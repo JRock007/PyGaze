@@ -72,7 +72,7 @@ class Dummy(DumbDummy):
 			timeout=2, visible=False)
 		self.kb = Keyboard(disptype=settings.DISPTYPE, keylist=None,
 			timeout=None)
-		self.angrybeep = Sound(osc='saw',freq=100, length=100, attack=0,
+		self.angrybeep = Sound(osc='saw', freq=100, length=100, attack=0,
 			decay=0, soundfile=None)
 		self.display = display
 		self.screen = Screen(disptype=settings.DISPTYPE, mousevisible=False)
@@ -107,10 +107,10 @@ class Dummy(DumbDummy):
 		pressed = None
 		while True:
 			# check for keyboard input
-			pressed, presstime = self.kb.get_key(keylist=['q','escape','space'], timeout=1)
+			pressed, presstime = self.kb.get_key(keylist=['q', 'escape', 'space'], timeout=1)
 			
 			# quit key
-			if pressed in ['q','escape']:
+			if pressed in ['q', 'escape']:
 				# hide mouse
 				self.simulator.set_visible(visible=False)
 				return False
@@ -197,7 +197,7 @@ class Dummy(DumbDummy):
 
 		self.recording = True
 		
-		print("Recording would have started at: " + str(dumrectime))
+		print(("Recording would have started at: " + str(dumrectime)))
 
 
 	def stop_recording(self):
@@ -209,7 +209,7 @@ class Dummy(DumbDummy):
 
 		self.recording = False
 
-		print("Recording would have stopped at: " + str(dumrectime))
+		print(("Recording would have stopped at: " + str(dumrectime)))
 
 
 	def close(self):
@@ -221,7 +221,7 @@ class Dummy(DumbDummy):
 		
 		closetime = clock.get_time()
 
-		print("eyetracker connection would have closed at: " + str(closetime))
+		print(("eyetracker connection would have closed at: " + str(closetime)))
 
 	def pupil_size(self):
 		
@@ -236,7 +236,7 @@ class Dummy(DumbDummy):
 
 		if self.blinking:
 			if self.simulator.get_pressed()[2]: # buttondown
-				self.simulator.set_pos(pos=(self.bbpos[0],self.resolution[1])) # set position to blinking position
+				self.simulator.set_pos(pos=(self.bbpos[0], self.resolution[1])) # set position to blinking position
 			elif not self.simulator.get_pressed()[2]: # buttonup
 				self.simulator.set_pos(pos=self.bbpos) # set position to position before blinking
 				self.blinking = False # 'blink' stopped
@@ -245,7 +245,7 @@ class Dummy(DumbDummy):
 			if self.simulator.get_pressed()[2]: # buttondown
 				self.blinking = True # 'blink' started
 				self.bbpos =  self.simulator.get_pos() # position before blinking
-				self.simulator.set_pos(pos=(self.bbpos[0],self.resolution[1])) # set position to blinking position
+				self.simulator.set_pos(pos=(self.bbpos[0], self.resolution[1])) # set position to blinking position
 
 		return self.simulator.get_pos()
 
@@ -295,7 +295,7 @@ class Dummy(DumbDummy):
 			# wait for a bit, to avoid immediately returning (runs go faster than mouse moves)
 			clock.pause(10)
 
-		return clock.get_time(), spos, (xl[len(xl)-1],yl[len(yl)-1])
+		return clock.get_time(), spos, (xl[len(xl)-1], yl[len(yl)-1])
 
 
 	def wait_for_fixation_start(self):
@@ -324,7 +324,7 @@ class Dummy(DumbDummy):
 			# wait for a bit, to avoid immediately returning (runs go faster than mouse moves)
 			clock.pause(10)
 
-		return clock.get_time(), (xl[len(xl)-1],yl[len(yl)-1])
+		return clock.get_time(), (xl[len(xl)-1], yl[len(yl)-1])
 
 
 	def wait_for_fixation_end(self):
@@ -399,7 +399,7 @@ class Dummy(DumbDummy):
 		
 		self.screen.clear()
 		self.screen.draw_fixation(fixtype='dot', colour=settings.FGC, \
-			pos=(x,y), pw=0, diameter=12)
+			pos=(x, y), pw=0, diameter=12)
 		self.display.fill(self.screen)
 		self.display.show()
 		

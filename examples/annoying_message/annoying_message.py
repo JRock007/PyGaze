@@ -17,14 +17,14 @@ from pygaze.libinput import Keyboard
 # objects
 disp = Display()
 scr = Screen()
-kb = Keyboard(keylist=['space'],timeout=1)
+kb = Keyboard(keylist=['space'], timeout=1)
 
 # run annoying message
 while kb.get_key()[0] == None:
 	# colour
-	col = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
+	col = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 	# position
-	pos = (random.randint(0,DISPSIZE[0]), random.randint(0,DISPSIZE[1]))
+	pos = (random.randint(0, DISPSIZE[0]), random.randint(0, DISPSIZE[1]))
 	# text
 	scr.draw_text(text=MESSAGE, colour=col, pos=pos, fontsize=84)
 	# display

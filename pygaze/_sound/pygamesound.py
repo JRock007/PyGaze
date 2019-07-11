@@ -173,7 +173,7 @@ class PyGameSound(BaseSound):
             # see pygaze._sound.basesound.BaseSound
 
             # raise exception on wrong input
-            if not isinstance(panning, (int, float)) and panning not in ['left','right']:
+            if not isinstance(panning, (int, float)) and panning not in ['left', 'right']:
                 raise Exception("Error in libsound.Sound.pan(): panning must be a \
                         value between -1.0 and 1.0 or either 'left' or 'right'. Got %s", panning)
 

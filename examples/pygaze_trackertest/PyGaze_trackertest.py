@@ -51,7 +51,7 @@ scr = Screen()
 tracker = EyeTracker(disp)
 
 # initialize a keyboard
-kb = Keyboard(keylist=['space'],timeout=None)
+kb = Keyboard(keylist=['space'], timeout=None)
 
 # initialize a sound
 snd = Sound(soundfile=soundfile)
@@ -152,7 +152,7 @@ tracker.status_msg("now testing wait_for_event functions")
 for i in range(len(eventfuncs)):
 	scr.clear()
 	scr.draw_text("Test function: %s(); press Space to start" % str(eventfuncs[i]))
-	scr.draw_fixation(fixtype='dot', pos=(DISPSIZE[0]*0.75,DISPSIZE[1]*0.75))
+	scr.draw_fixation(fixtype='dot', pos=(DISPSIZE[0]*0.75, DISPSIZE[1]*0.75))
 	disp.fill(scr)
 	disp.show()
 	kb.get_key()
@@ -173,7 +173,7 @@ scr.draw_text("There should be an image in the centre of the screen", pos=(DISPS
 scr.draw_image(imagefile) # imginfo: 400x600 px; kitten head position relative to image x=40, y=160, w=130, h=140
 x = (DISPSIZE[0]/2 - 200) + 40 # centre minus half of the image width, plus kitten head X position in image
 y = (DISPSIZE[1]/2 - 300) + 160 # centre minus half of the image height, plus kitten head Y position in image
-aoi = AOI('rectangle',(x,y),(130,140))
+aoi = AOI('rectangle', (x, y), (130, 140))
 disp.fill(scr)
 t1 = disp.show()
 log.write(["AOI", t1])
@@ -181,7 +181,7 @@ key = None
 tracker.start_recording()
 while key != 'space':
 	# check for key input
-	key, presstime = kb.get_key(keylist=['space'],timeout=1)
+	key, presstime = kb.get_key(keylist=['space'], timeout=1)
 	# get gaze position
 	gazepos = tracker.sample()
 	# check if the gaze position is within the aoi
@@ -206,7 +206,7 @@ key = None
 tracker.start_recording()
 while key != 'space':
 	# check for key input
-	key, presstime = kb.get_key(keylist=['space'],timeout=1)
+	key, presstime = kb.get_key(keylist=['space'], timeout=1)
 	# get gaze position
 	gazepos = tracker.sample()
 	# update FRL
@@ -216,7 +216,7 @@ tracker.stop_recording()
 # GazeCursor
 scr.clear()
 scr.draw_text("The cursor should follow your gaze")
-cursor = GazeCursor(ctype='arrow',size=20,colour=(0,0,0), pw=3, fill=True)
+cursor = GazeCursor(ctype='arrow', size=20, colour=(0, 0, 0), pw=3, fill=True)
 disp.fill(scr)
 t1 = disp.show()
 log.write(["GazeCursor", t1])
@@ -224,7 +224,7 @@ key = None
 tracker.start_recording()
 while key != 'space':
 	# check for key input
-	key, presstime = kb.get_key(keylist=['space'],timeout=1)
+	key, presstime = kb.get_key(keylist=['space'], timeout=1)
 	# get gaze position
 	gazepos = tracker.sample()
 	# add new cursor to cleared screen

@@ -79,7 +79,7 @@ class PyGameDisplay(BaseDisplay):
 
 		# blit screen to display surface (if user entered one)
 		if screen:
-			pygaze.expdisplay.blit(screen.screen,(0,0))
+			pygaze.expdisplay.blit(screen.screen, (0, 0))
 		else:
 			pygaze.expdisplay.fill(self.bgc)
 
@@ -100,14 +100,14 @@ class PyGameDisplay(BaseDisplay):
 			for r in rect:
 				pygaze.expdisplay.set_clip(r)
 				if screen:
-					pygaze.expdisplay.blit(screen.screen, (0,0))
+					pygaze.expdisplay.blit(screen.screen, (0, 0))
 				pygame.display.update(r)
 				pygaze.expdisplay.set_clip(None)
 				
 		elif len(rect) == 1:
 			pygaze.expdisplay.clip(rect)
 			if screen:
-				pygaze.expdisplay.blit(screen.screen, (0,0))
+				pygaze.expdisplay.blit(screen.screen, (0, 0))
 			pygame.display.update(rect)
 			pygaze.expdisplay.set_clip(None)
 
@@ -123,7 +123,7 @@ class PyGameDisplay(BaseDisplay):
 
 		pygaze.expdisplay.fill(self.bgc)
 		if screen != None:
-			pygaze.expdisplay.blit(screen.screen,(0,0))
+			pygaze.expdisplay.blit(screen.screen, (0, 0))
 
 
 	def close(self):

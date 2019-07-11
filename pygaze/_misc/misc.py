@@ -66,7 +66,7 @@ def pos2psychopos(pos, dispsize=None):
 	x = pos[0] - dispsize[0]/2
 	y = (pos[1] - dispsize[1]/2) * -1
 
-	return (x,y)
+	return (x, y)
 
 
 def psychopos2pos(pos, dispsize=None):
@@ -93,7 +93,7 @@ def psychopos2pos(pos, dispsize=None):
 	x = pos[0] + dispsize[0]/2
 	y = (pos[1] * -1) + dispsize[1]/2
 
-	return (x,y)
+	return (x, y)
 
 
 def rgb2psychorgb(rgbgun):
@@ -109,7 +109,7 @@ def rgb2psychorgb(rgbgun):
 			   rgbgun when passed rgbgun was not a tuple or a list
 	"""
 	
-	if type(rgbgun) not in [tuple,list]:
+	if type(rgbgun) not in [tuple, list]:
 		return rgbgun
 
 	psyrgb = []

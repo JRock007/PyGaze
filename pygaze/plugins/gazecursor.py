@@ -24,7 +24,7 @@ class GazeCursor:
 	
 	"""Gaze contingent cursor"""
 
-	def __init__(self, disptype='', ctype='cross', size=20, colour=(200,100,100), pw=3, fill=True):
+	def __init__(self, disptype='', ctype='cross', size=20, colour=(200, 100, 100), pw=3, fill=True):
 
 		"""Initializes cursor object
 		
@@ -56,16 +56,16 @@ class GazeCursor:
 		self.fill = fill
 		self.pw = pw
 		
-		if type(size) in [int,float]:
+		if type(size) in [int, float]:
 			self.size = (int(size), int(size))
-		elif type(size) == tuple or type(size) == list:
+		elif isinstance(size, tuple) or isinstance(size, list):
 			if len(size) == 2:
-				self.size = map(int, size)
+				self.size = list(map(int, size))
 			else:
 				self.size = (int(size[0]), int(size[1]))
 				print("WARNING! plugins.gazecursor.__init__: too many entries for cursor size; only the first two are used")
 			
-		if type(colour) == tuple or type(colour) == list:
+		if isinstance(colour, tuple) or isinstance(colour, list):
 			if len(colour) <= 4:
 				self.colour = colour
 			else:
@@ -99,8 +99,8 @@ class GazeCursor:
 		if self.ctype == 'cross':
 			screen.draw_fixation(fixtype='x', colour=self.colour, pos=gazepos, pw=self.pw, diameter=self.size)
 		if self.ctype == 'arrow':
-			screen.draw_polygon([(gazepos[0]+self.size[0],gazepos[1]+(0.5*self.size[1])),(gazepos[0],gazepos[1]),(gazepos[0]+(0.5*self.size[0]),gazepos[1]+self.size[1])], colour=self.colour, pw=self.pw, fill=self.fill)
-			screen.draw_line(colour=self.colour, spos=(gazepos[0],gazepos[1]), epos=(gazepos[0]+self.size[0],gazepos[1]+self.size[1]), pw=self.pw)
+			screen.draw_polygon([(gazepos[0]+self.size[0], gazepos[1]+(0.5*self.size[1])), (gazepos[0], gazepos[1]), (gazepos[0]+(0.5*self.size[0]), gazepos[1]+self.size[1])], colour=self.colour, pw=self.pw, fill=self.fill)
+			screen.draw_line(colour=self.colour, spos=(gazepos[0], gazepos[1]), epos=(gazepos[0]+self.size[0], gazepos[1]+self.size[1]), pw=self.pw)
 
 		return screen
 

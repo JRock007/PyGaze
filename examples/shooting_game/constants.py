@@ -29,10 +29,10 @@ TRIALS = 1
 # DISPLAY
 SCREENNR = 0 # number of the screen used for displaying experiment
 DISPTYPE = 'psychopy' # either 'psychopy' or 'pygame'
-DISPSIZE = (1024,768) # canvas size
+DISPSIZE = (1024, 768) # canvas size
 MOUSEVISIBLE = False # mouse visibility
-BGC = (125,125,125) # backgroundcolour
-FGC = (0,0,0) # foregroundcolour
+BGC = (125, 125, 125) # backgroundcolour
+FGC = (0, 0, 0) # foregroundcolour
 FONTSIZE = 32 # font size
 
 # INPUT
@@ -52,8 +52,8 @@ SMIRECEIVEPORT = 5555
 
 # STIMULUS
 STIMSIZE = 100 # stimulus size (pixels)
-STIMCOL = (255,255,0) # stimulus colour
-STIMPOS = (DISPSIZE[0]/2,DISPSIZE[1]/2) # start position
+STIMCOL = (255, 255, 0) # stimulus colour
+STIMPOS = (DISPSIZE[0]/2, DISPSIZE[1]/2) # start position
 STIMREFRESH = 2500 # ms; time before stimulus is set to new position
 
 # GAME

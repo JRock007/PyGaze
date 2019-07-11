@@ -116,7 +116,7 @@ class EyelinkGraphics(custom_display):
 		self.state = None
 		self.pal = None
 
-		self.size = (0,0)
+		self.size = (0, 0)
 		self.set_tracker(tracker)
 		self.last_mouse_state = -1
 		self.bit64 = '64bit' in platform.architecture()
@@ -131,11 +131,11 @@ class EyelinkGraphics(custom_display):
 
 		self.menuscreen = Screen(disptype=settings.DISPTYPE, mousevisible=False)
 		self.menuscreen.draw_text(text="Eyelink calibration menu",
-			pos=(self.xc,self.yc-6*self.ld), center=True, font='mono',
+			pos=(self.xc, self.yc-6*self.ld), center=True, font='mono',
 			fontsize=int(2*self.fontsize), antialias=True)
 		self.menuscreen.draw_text(text="%s (pygaze %s, pylink %s)" \
 			% (self.libeyelink.eyelink_model, pygaze.version,
-			pylink.__version__), pos=(self.xc,self.yc-5*self.ld), center=True,
+			pylink.__version__), pos=(self.xc, self.yc-5*self.ld), center=True,
 			font='mono', fontsize=int(.8*self.fontsize), antialias=True)
 		self.menuscreen.draw_text(text="Press C to calibrate",
 			pos=(self.xc, self.yc-3*self.ld), center=True, font='mono',
@@ -144,13 +144,13 @@ class EyelinkGraphics(custom_display):
 			pos=(self.xc, self.yc-2*self.ld), center=True, font='mono',
 			fontsize=self.fontsize, antialias=True)
 		self.menuscreen.draw_text(text="Press A to auto-threshold",
-			pos=(self.xc,self.yc-1*self.ld), center=True, font='mono',
+			pos=(self.xc, self.yc-1*self.ld), center=True, font='mono',
 			fontsize=self.fontsize, antialias=True)
 		self.menuscreen.draw_text(text="Press I to toggle extra info in camera image",
-			pos=(self.xc,self.yc-0*self.ld), center=True, font='mono',
+			pos=(self.xc, self.yc-0*self.ld), center=True, font='mono',
 			fontsize=self.fontsize, antialias=True)
 		self.menuscreen.draw_text(text="Press Enter to show camera image",
-			pos=(self.xc,self.yc+1*self.ld), center=True, font='mono',
+			pos=(self.xc, self.yc+1*self.ld), center=True, font='mono',
 			fontsize=self.fontsize, antialias=True)
 		self.menuscreen.draw_text(
 			text="(then change between images using the arrow keys)",
@@ -253,7 +253,7 @@ class EyelinkGraphics(custom_display):
 
 		self.play_beep(pylink.CAL_TARG_BEEP)
 		self.screen.clear()
-		self.screen.draw_fixation(fixtype='dot', pos=(x,y))
+		self.screen.draw_fixation(fixtype='dot', pos=(x, y))
 		self.display.fill(screen=self.screen)
 		self.display.show()
 
@@ -276,7 +276,7 @@ class EyelinkGraphics(custom_display):
 			self.screen.clear()
 			self.screen.draw_text(
 				text="calibration lost, press 'Enter' to return to menu",
-				pos=(self.xc,self.yc), center=True, font='mono',
+				pos=(self.xc, self.yc), center=True, font='mono',
 				fontsize=self.fontsize, antialias=True)
 			self.display.fill(self.screen)
 			self.display.show()
@@ -288,16 +288,16 @@ class EyelinkGraphics(custom_display):
 			if self.state == "calibration":
 				self.screen.draw_text(
 					text="Calibration succesfull, press 'v' to validate",
-					pos=(self.xc,self.yc), center=True, font='mono',
+					pos=(self.xc, self.yc), center=True, font='mono',
 					fontsize=self.fontsize, antialias=True)
 			elif self.state == "validation":
 				self.screen.draw_text(
 					text="Validation succesfull, press 'Enter' to return to menu",
-					pos=(self.xc,self.yc), center=True, font='mono',
+					pos=(self.xc, self.yc), center=True, font='mono',
 					fontsize=self.fontsize, antialias=True)
 			else:
 				self.screen.draw_text(text="Press 'Enter' to return to menu",
-					pos=(self.xc,self.yc), center=True, font='mono',
+					pos=(self.xc, self.yc), center=True, font='mono',
 					fontsize=self.fontsize, antialias=True)
 			# show screen
 			self.display.fill(self.screen)
@@ -456,7 +456,7 @@ class EyelinkGraphics(custom_display):
 
 		self.clear_cal_display()
 
-	def alert_printf(self,msg):
+	def alert_printf(self, msg):
 
 		"""
 		Prints alert message.
@@ -465,7 +465,7 @@ class EyelinkGraphics(custom_display):
 		msg		--	The message to be played.
 		"""
 
-		print("eyelink_graphics.alert_printf(): %s" % msg)
+		print(("eyelink_graphics.alert_printf(): %s" % msg))
 
 	def setup_image_display(self, width, height):
 

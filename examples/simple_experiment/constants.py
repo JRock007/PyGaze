@@ -34,8 +34,8 @@ DISPTYPE = 'pygame' # either 'psychopy' or 'pygame'
 DISPSIZE = (1920, 1080) # resolution
 SCREENSIZE = (34.5, 19.7) # physical display size in cm
 MOUSEVISIBLE = False # mouse visibility
-BGC = (125,125,125) # backgroundcolour
-FGC = (0,0,0) # foregroundcolour
+BGC = (125, 125, 125) # backgroundcolour
+FGC = (0, 0, 0) # foregroundcolour
 FULLSCREEN = False
 
 # SOUND

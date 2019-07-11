@@ -31,7 +31,7 @@ tracker = EyeTracker(disp)
 
 # output
 log = Logfile()
-log.write(["trialnr","image","imgtime"])
+log.write(["trialnr", "image", "imgtime"])
 
 
 # # # # #
@@ -76,7 +76,7 @@ for trialnr in range(ntrials):
 	# PREPARE TRIAL
 	# draw the image
 	scr.clear()
-	scr.draw_image(os.path.join(IMGDIR,images[trialnr]))
+	scr.draw_image(os.path.join(IMGDIR, images[trialnr]))
 
 	# perform a drift check
 	tracker.drift_correction()

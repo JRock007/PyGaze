@@ -25,9 +25,9 @@ disp = Display()
 screen = Screen()
 blankscreen = Screen()
 hitscreen = Screen()
-hitscreen.clear(colour=(0,255,0))
+hitscreen.clear(colour=(0, 255, 0))
 misscreen = Screen()
-misscreen.clear(colour=(255,0,0))
+misscreen.clear(colour=(255, 0, 0))
 
 # create eyelink objecy
 eyetracker = EyeTracker(disp)
@@ -43,7 +43,7 @@ disp.show()
 # game
 
 # run several rounds
-for trialnr in range(0,TRIALS):
+for trialnr in range(0, TRIALS):
 	
 	# start eye tracking
 	eyetracker.start_recording()
@@ -85,7 +85,7 @@ for trialnr in range(0,TRIALS):
 		disp.show()
 		# calculate new stimulus position
 		if libtime.get_time() - tstim > STIMREFRESH:
-			stimpos = (random.randint(int(DISPSIZE[0]*0.1),int(DISPSIZE[0]*0.9)), random.randint(int(DISPSIZE[1]*0.1),int(DISPSIZE[1]*0.9)))
+			stimpos = (random.randint(int(DISPSIZE[0]*0.1), int(DISPSIZE[0]*0.9)), random.randint(int(DISPSIZE[1]*0.1), int(DISPSIZE[1]*0.9)))
 			tstim = libtime.get_time()
 
 	# stop eye tracking

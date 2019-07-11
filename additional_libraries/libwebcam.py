@@ -116,7 +116,7 @@ class Camera:
 	'psychopy'!)"""
 	
 	def __init__(self, disptype=settings.DISPTYPE, dev=None, devtype='pygame',
-		resolution=(640,480), verflip=False, horflip=False):
+		resolution=(640, 480), verflip=False, horflip=False):
 		
 		"""Initializes a Camera instance
 		
@@ -145,12 +145,12 @@ class Camera:
 		# check device type and do some trouble shooting
 		
 		# check if devtype is a valid back-end
-		if devtype not in ['vidcap','pygame']:
+		if devtype not in ['vidcap', 'pygame']:
 			raise Exception("Error in libwebcam.Camera.__init__: devtype '%s' is not supported, use 'pygame' or 'vidcap'" % devtype)
 		# vidcap trouble shooting
 		elif devtype == 'vidcap':
 			if sys.platform != 'win32':
-				raise Exception("Error in libwebcam.Camera.__init__: devtype '%s' is not available on your system '%s' (only on Windows)" % (devtype,sys.platform))
+				raise Exception("Error in libwebcam.Camera.__init__: devtype '%s' is not available on your system '%s' (only on Windows)" % (devtype, sys.platform))
 			if not vidimp:
 				raise Exception("Error in libwebcam.Camera.__init__: devtype '%s' is not available because vidcap could not be imported (have you installed it correctly?)" % devtype)
 			if not pilimgimp:
@@ -176,7 +176,7 @@ class Camera:
 		self.horflip = horflip
 		self.verflip = verflip
 		self.flipnr = -1
-		self.img = Image.new('RGB',self.camres,'black')
+		self.img = Image.new('RGB', self.camres, 'black')
 		
 		# autodetect device
 		if self.devname == None:
@@ -241,7 +241,7 @@ class Camera:
 		# PyGame camera and image modules
 		else:
 			try:
-				self.dev.set_controls(self.horflip,self.verflip,self.dev.get_controls()[2])
+				self.dev.set_controls(self.horflip, self.verflip, self.dev.get_controls()[2])
 			except:
 				print("WARNING in libwebcam.Camera.set_imgflip: flipping not supported by the device")
 	
@@ -273,7 +273,7 @@ class Camera:
 				return self.img
 			# if the disptype is pygame, we need to convert the PIL Image to a PyGame image
 			else:
-				return pygame.image.fromstring(self.img.tostring(), (width,height), 'RGB', False) # (string, size, format, flipped)
+				return pygame.image.fromstring(self.img.tostring(), (width, height), 'RGB', False) # (string, size, format, flipped)
 		
 		# other platforms
 		else:

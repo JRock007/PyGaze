@@ -31,11 +31,11 @@ TRIALS = 5
 # but not the constant's names
 SCREENNR = 0 # number of the screen used for displaying experiment
 DISPTYPE = 'pygame' # either 'psychopy' or 'pygame'
-DISPSIZE = (1920,1080) # canvas size
+DISPSIZE = (1920, 1080) # canvas size
 SCREENSIZE = (34.5, 19.7) # physical display size in cm
 MOUSEVISIBLE = False # mouse visibility
-BGC = (125,125,125) # backgroundcolour
-FGC = (0,0,0) # foregroundcolour
+BGC = (125, 125, 125) # backgroundcolour
+FGC = (0, 0, 0) # foregroundcolour
 
 # SOUND
 # defaults used in libsound. The values may be adjusted, but not the constants'

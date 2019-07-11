@@ -128,7 +128,7 @@ class PsychoPyKeyboard(BaseKeyboard):
 
 		# wait for input
 		while timeout == None or time - starttime <= timeout:
-			keys = psychopy.event.getKeys(keyList=keylist,timeStamped=False)
+			keys = psychopy.event.getKeys(keyList=keylist, timeStamped=False)
 			for key in keys:
 				if keylist == None or key in keylist:
 					return key, clock.get_time()

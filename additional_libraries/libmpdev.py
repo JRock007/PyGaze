@@ -33,7 +33,7 @@ try:
 	mpdev = windll.LoadLibrary('mpdev.dll')
 except:
 	try:
-		mpdev = windll.LoadLibrary(os.path.join(os.path.dirname(os.path.abspath(__file__)),'mpdev.dll'))
+		mpdev = windll.LoadLibrary(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'mpdev.dll'))
 	except:
 		raise Exception("Error in libmpdev: could not load mpdev.dll")
 
@@ -149,7 +149,7 @@ class MP150:
 		# open log file
 		self._logfile = open(self._logfilename, 'w')
 		# write header
-		header = "\t".join(["timestamp","channel_1","channel_2","channel_3"])
+		header = "\t".join(["timestamp", "channel_1", "channel_2", "channel_3"])
 		self._logfile.write(header + "\n")
 		
 		# create logging lock

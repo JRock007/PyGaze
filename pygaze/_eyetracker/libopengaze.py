@@ -38,7 +38,7 @@ import math
 import random
 
 # external imports
-from opengaze import OpenGazeTracker as OpenGaze
+from .opengaze import OpenGazeTracker as OpenGaze
 
 
 def deg2pix(cmdist, angle, pixpercm):
@@ -134,7 +134,7 @@ class OpenGazeTracker(BaseEyeTracker):
 		self.errdist = 2 # degrees; maximal error for drift correction
 		self.pxerrdist = 30 # initial error in pixels
 		self.maxtries = 100 # number of samples obtained before giving up (for obtaining accuracy and tracker distance information, as well as starting or stopping recording)
-		self.prevsample = (-1,-1)
+		self.prevsample = (-1, -1)
 		self.prevps = -1
 		
 		# event detection properties
@@ -212,7 +212,7 @@ class OpenGazeTracker(BaseEyeTracker):
 		calibpoints = []
 		for x in [0.1, 0.5, 0.9]:
 			for y in [0.1, 0.5, 0.9]:
-				calibpoints.append((x,y))
+				calibpoints.append((x, y))
 		random.shuffle(calibpoints)
 		
 		# Clear the OpenGaze calibration.
@@ -313,14 +313,14 @@ class OpenGazeTracker(BaseEyeTracker):
 						quited = True
 						break
 					# Clear the screen.
-					self.screen.clear(colour=(0,0,0))
+					self.screen.clear(colour=(0, 0, 0))
 					# Caculate at which point in the animation we are.
 					p = 1.0 - float(t-t1) / (caldur['animation']*1000)
 					# Draw the animated disk.
-					self.screen.draw_circle(colour=(255,255,255), \
+					self.screen.draw_circle(colour=(255, 255, 255), \
 						pos=(x, y), r=max(1, int(30*p)), fill=True)
 					# Draw the calibration target.
-					self.screen.draw_circle(colour=(255,0,0), \
+					self.screen.draw_circle(colour=(255, 0, 0), \
 						pos=(x, y), r=3, fill=True)
 					# Show the screen.
 					self.disp.fill(self.screen)
@@ -360,7 +360,7 @@ class OpenGazeTracker(BaseEyeTracker):
 				self.disp.fill(self.screen)
 				self.disp.show()
 				# get input
-				key, keytime = self.kb.get_key(keylist=['q','space'], \
+				key, keytime = self.kb.get_key(keylist=['q', 'space'], \
 					timeout=None, flush=True)
 				if key == 'space':
 					# unset quited Boolean
@@ -390,13 +390,13 @@ class OpenGazeTracker(BaseEyeTracker):
 					
 					# Draw the target.
 					self.screen.draw_fixation(fixtype='dot',
-						colour=(115,210,22), \
+						colour=(115, 210, 22), \
 						pos=(p['CALX'], p['CALY']))
 					
 					# If the calibration for this target is valid,
 					# draw the estimated point. We have two points:
 					# one for left and one for right.
-					col = {'L':(32,74,135), 'R':(92,53,102)}
+					col = {'L':(32, 74, 135), 'R':(92, 53, 102)}
 					for eye in ['L', 'R']:
 						# Check if the eye is valid, and choose the
 						# position and colour accordingly.
@@ -407,13 +407,13 @@ class OpenGazeTracker(BaseEyeTracker):
 						else:
 							x = p['CALX']
 							y = p['CALY']
-							c = (204,0,0)
+							c = (204, 0, 0)
 						# Draw a line between the estimated and the
 						# actual point.
 						if p['%sV' % (eye)]:
 							self.screen.draw_line(colour=c, \
 								spos=(p['CALX'], p['CALY']), \
-								epos=(x,y), \
+								epos=(x, y), \
 								pw=3)
 						# Draw the estimated gaze point.
 						self.screen.draw_fixation( \
@@ -438,7 +438,7 @@ class OpenGazeTracker(BaseEyeTracker):
 			self.disp.fill(self.screen)
 			self.disp.show()
 			# Wait for input.
-			key, keytime = self.kb.get_key(keylist=['space','r'], \
+			key, keytime = self.kb.get_key(keylist=['space', 'r'], \
 				timeout=None, flush=True)
 			# Process input.
 			if key == 'space':
@@ -500,9 +500,9 @@ class OpenGazeTracker(BaseEyeTracker):
 
 		# calibration report
 		self._elog("pygaze calibration report start")
-		self._elog("accuracy (degrees): LX=%s, LY=%s, RX=%s, RY=%s" % (self.accuracy[0][0],self.accuracy[0][1],self.accuracy[1][0],self.accuracy[1][1]))
-		self._elog("accuracy (in pixels): LX=%s, LY=%s, RX=%s, RY=%s" % (self.pxaccuracy[0][0],self.pxaccuracy[0][1],self.pxaccuracy[1][0],self.pxaccuracy[1][1]))
-		self._elog("precision (RMS noise in pixels): X=%s, Y=%s" % (self.pxdsttresh[0],self.pxdsttresh[1]))
+		self._elog("accuracy (degrees): LX=%s, LY=%s, RX=%s, RY=%s" % (self.accuracy[0][0], self.accuracy[0][1], self.accuracy[1][0], self.accuracy[1][1]))
+		self._elog("accuracy (in pixels): LX=%s, LY=%s, RX=%s, RY=%s" % (self.pxaccuracy[0][0], self.pxaccuracy[0][1], self.pxaccuracy[1][0], self.pxaccuracy[1][1]))
+		self._elog("precision (RMS noise in pixels): X=%s, Y=%s" % (self.pxdsttresh[0], self.pxdsttresh[1]))
 		self._elog("distance between participant and display: %s cm" % screendist)
 		self._elog("fixation threshold: %s pixels" % self.pxfixtresh)
 		self._elog("speed threshold: %s pixels/ms" % self.pxspdtresh)
@@ -575,7 +575,7 @@ class OpenGazeTracker(BaseEyeTracker):
 			return self.fix_triggered_drift_correction(pos)
 		
 		# DEBUG #
-		print("Running drift correction, pos=(%d, %d)" % (pos[0], pos[1]))
+		print(("Running drift correction, pos=(%d, %d)" % (pos[0], pos[1])))
 		# # # # #
 
 		self.draw_drift_correction_target(pos[0], pos[1])
@@ -606,7 +606,7 @@ class OpenGazeTracker(BaseEyeTracker):
 		"""
 		
 		self.screen.clear()
-		self.screen.draw_fixation(fixtype='dot', colour=settings.FGC, pos=(x,y),
+		self.screen.draw_fixation(fixtype='dot', colour=settings.FGC, pos=(x, y),
 			pw=0, diameter=12)
 		self.disp.fill(self.screen)
 		self.disp.show()			
@@ -674,7 +674,7 @@ class OpenGazeTracker(BaseEyeTracker):
 				
 
 			# Pressing escape enters the calibration screen.
-			if self.kb.get_key()[0] in ['escape','q']:
+			if self.kb.get_key()[0] in ['escape', 'q']:
 				print("libopengaze.OpenGazeTracker.fix_triggered_drift_correction: 'q' or 'escape' pressed")
 				return self.calibrate()
 		
@@ -755,7 +755,7 @@ class OpenGazeTracker(BaseEyeTracker):
 		
 		# Invalid data.
 		if rs == (None, None):
-			return (-1,-1)
+			return (-1, -1)
 		
 		# Convert relative coordinates to display coordinates.
 		s = (rs[0]*self.dispsize[0], rs[1]*self.dispsize[1])
@@ -836,10 +836,10 @@ class OpenGazeTracker(BaseEyeTracker):
 						available for saccade detection
 		"""
 		
-		if eventdetection in ['pygaze','native']:
+		if eventdetection in ['pygaze', 'native']:
 			self.eventdetection = eventdetection
 		
-		return ('pygaze','pygaze','pygaze')
+		return ('pygaze', 'pygaze', 'pygaze')
 
 
 	def wait_for_event(self, event):
@@ -1241,7 +1241,7 @@ class OpenGazeTracker(BaseEyeTracker):
 		"""
 		
 		# return False if a sample is invalid
-		if gazepos == (None,None) or gazepos == (-1,-1):
+		if gazepos == (None, None) or gazepos == (-1, -1):
 			return False
 		
 		# in any other case, the sample is valid

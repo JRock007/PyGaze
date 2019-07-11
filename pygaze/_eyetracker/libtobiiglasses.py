@@ -50,7 +50,7 @@ import signal
 import sys
 
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import json
 import time
 import threading
@@ -65,7 +65,7 @@ warnings.filterwarnings("ignore", category=numpy.VisibleDeprecationWarning)
 # # # # #
 # TobiiGlassesController
 
-from tobiiglasses.tobiiglassescontroller import TobiiGlassesController
+from .tobiiglasses.tobiiglassescontroller import TobiiGlassesController
 
 
 
@@ -110,7 +110,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 		self.screendist = settings.SCREENDIST # distance between participant and screen in cm
 		self.pixpercm = (self.dispsize[0]/float(self.screensize[0]) + self.dispsize[1]/float(self.screensize[1])) / 2.0
 		self.kb = Keyboard(keylist=['space', 'escape', 'q'], timeout=1)
-		self.errorbeep = Sound(osc='saw',freq=100, length=100)
+		self.errorbeep = Sound(osc='saw', freq=100, length=100)
 
 		# output file properties
 		self.outputfile = logfile
@@ -125,7 +125,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 
 
 		self.maxtries = 100 # number of samples obtained before giving up (for obtaining accuracy and tracker distance information, as well as starting or stopping recording)
-		self.prevsample = (-1,-1)
+		self.prevsample = (-1, -1)
 
 		# validation properties
 		self.nvalsamples = 1000 # samples for one validation point
@@ -163,13 +163,13 @@ class TobiiGlassesTracker(BaseEyeTracker):
 		if "mems" in keys:
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					ac[i] = self.tobiiglasses.data['mems']['ac']['ac'][i]
 			except:
 				pass
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					gy[i] = self.tobiiglasses.data['mems']['gy']['gy'][i]
 			except:
 				pass
@@ -181,7 +181,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 		if "gp" in keys:
 
 			try:
-				for i in range(0,2):
+				for i in range(0, 2):
 					gp[i] = self.tobiiglasses.data['gp']['gp'][i]
 			except:
 				pass
@@ -193,7 +193,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 		if "gp3" in keys:
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					gp3[i] = self.tobiiglasses.data['gp3']['gp3'][i]
 			except:
 				pass
@@ -207,7 +207,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 		if "left_eye" in keys:
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					pc[i] = self.tobiiglasses.data['left_eye']['pc']['pc'][i]
 			except:
 				pass
@@ -218,7 +218,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 				pass
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					gd[i] = self.tobiiglasses.data['left_eye']['gd']['gd'][i]
 			except:
 				pass
@@ -232,7 +232,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 		if "right_eye" in keys:
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					pc[i] = self.tobiiglasses.data['right_eye']['pc']['pc'][i]
 			except:
 				pass
@@ -243,7 +243,7 @@ class TobiiGlassesTracker(BaseEyeTracker):
 				pass
 
 			try:
-				for i in range(0,3):
+				for i in range(0, 3):
 					gd[i] = self.tobiiglasses.data['right_eye']['gd']['gd'][i]
 			except:
 				pass

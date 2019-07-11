@@ -35,7 +35,7 @@ def find():
 	otherwise a new file is created"""
 	
 	# check if there already is a highscores file
-	if os.path.isfile(os.path.join(datadir,datafile)):
+	if os.path.isfile(os.path.join(datadir, datafile)):
 		# if there is one, load it
 		return load()
 	else:
@@ -64,7 +64,7 @@ def new():
 	"""Creates a new (empty!) high scores file, overwritting any existing file"""
 	
 	# create new highscores dict
-	highscores = {'names':[],'scores':[],'loser':['',0]}
+	highscores = {'names':[],'scores':[],'loser':['', 0]}
 
 	# open data file
 	picklefile = open(datafile, "wb")
@@ -106,11 +106,11 @@ def update(name, score):
 				highscores['loser'][1] = score
 	
 		# check if current score is among highest
-		for i in range(0,len(highscores['names'])):
+		for i in range(0, len(highscores['names'])):
 			if score > highscores['scores'][i]:
 				# add name and score to highscores
-				highscores['names'].insert(i,name)
-				highscores['scores'].insert(i,score)
+				highscores['names'].insert(i, name)
+				highscores['scores'].insert(i, score)
 				replace = True
 				inserted = True
 				# kill the for loop to prevent further addition of current score
@@ -164,7 +164,7 @@ def current(highscores):
 	hcstring = 'name		score\n'
 	
 	# fill out highscore string
-	for i in range(0,len(highscores['names'])):
+	for i in range(0, len(highscores['names'])):
 		
 		name = highscores['names'][i]
 		score = highscores['scores'][i]

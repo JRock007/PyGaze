@@ -56,7 +56,7 @@ except:
 	except:
 		pilimp = False
 		warnings.warn( \
-			u"PIL's Image class could not be loaded; image scaling with PsychoPy disptype is now impossible!")
+			"PIL's Image class could not be loaded; image scaling with PsychoPy disptype is now impossible!")
 
 
 class PsychoPyScreen(BaseScreen):
@@ -181,7 +181,7 @@ class PsychoPyScreen(BaseScreen):
 			pos = (self.dispsize[0]/2, self.dispsize[1]/2)
 
 		colour = rgb2psychorgb(colour)
-		pos = pos2psychopos(pos,dispsize=self.dispsize)
+		pos = pos2psychopos(pos, dispsize=self.dispsize)
 
 		if fill:
 			self.screen.append(Circle(pygaze.expdisplay, radius=r, edges=32, pos=pos, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=colour, fillColorSpace='rgb'))
@@ -227,15 +227,15 @@ class PsychoPyScreen(BaseScreen):
 		if y == None:
 			y = 0
 
-		pos = x,y
+		pos = x, y
 		colour = rgb2psychorgb(colour)
-		pos = pos2psychopos(pos,dispsize=self.dispsize)
+		pos = pos2psychopos(pos, dispsize=self.dispsize)
 		pos = pos[0] + w/2, pos[1] - h/2
 
 		if fill:
-			self.screen.append(Circle(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=colour, fillColorSpace='rgb', pos=pos, size=(w,h)))
+			self.screen.append(Circle(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=colour, fillColorSpace='rgb', pos=pos, size=(w, h)))
 		else:
-			self.screen.append(Circle(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=None, pos=pos, size=(w,h)))
+			self.screen.append(Circle(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=None, pos=pos, size=(w, h)))
 
 		
 	def draw_rect(self, colour=None, x=None, y=None, w=50, h=50, pw=1, fill=False):
@@ -272,9 +272,9 @@ class PsychoPyScreen(BaseScreen):
 		if y == None:
 			y = self.dispsize[1]/2
 
-		pos = x,y
+		pos = x, y
 		colour = rgb2psychorgb(colour)
-		pos = pos2psychopos(pos,dispsize=self.dispsize)
+		pos = pos2psychopos(pos, dispsize=self.dispsize)
 		pos = pos[0] + w/2, pos[1] - h/2
 
 		if fill:
@@ -315,8 +315,8 @@ class PsychoPyScreen(BaseScreen):
 			epos = (int(self.dispsize[0]*0.75), self.dispsize[1]/2)
 
 		colour = rgb2psychorgb(colour)
-		spos = pos2psychopos(spos,dispsize=self.dispsize)
-		epos = pos2psychopos(epos,dispsize=self.dispsize)
+		spos = pos2psychopos(spos, dispsize=self.dispsize)
+		epos = pos2psychopos(epos, dispsize=self.dispsize)
 		
 		# The `Line` class appears to be broken in a recent update of
 		# PsychoPy. Hence the fallback to `ShapeStim`. See also:
@@ -355,12 +355,12 @@ class PsychoPyScreen(BaseScreen):
 		colour = rgb2psychorgb(colour)
 		pl = []
 		for pos in pointlist:
-			pl.append(pos2psychopos(pos,dispsize=self.dispsize))
+			pl.append(pos2psychopos(pos, dispsize=self.dispsize))
 
 		if fill:
-			self.screen.append(ShapeStim(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=colour, fillColorSpace='rgb',vertices=pl, closeShape=True))
+			self.screen.append(ShapeStim(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=colour, fillColorSpace='rgb', vertices=pl, closeShape=True))
 		else:
-			self.screen.append(ShapeStim(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=rgb2psychorgb(self.bgc), fillColorSpace='rgb',vertices=pl, closeShape=True))
+			self.screen.append(ShapeStim(pygaze.expdisplay, lineWidth=pw, lineColor=colour, lineColorSpace='rgb', fillColor=rgb2psychorgb(self.bgc), fillColorSpace='rgb', vertices=pl, closeShape=True))
 
 			
 	def draw_fixation(self, fixtype='cross', colour=None, pos=None, pw=1, diameter=12):
@@ -392,7 +392,7 @@ class PsychoPyScreen(BaseScreen):
 				   self.screen property
 		"""
 		
-		if fixtype not in ['cross','x','dot']:
+		if fixtype not in ['cross', 'x', 'dot']:
 			raise Exception("Error in libscreen.Screen.draw_fixation: fixtype %s not recognized; fixtype should be one of 'cross','x','dot'" % fixtype)
 		if colour == None:
 			colour = self.fgc
@@ -455,7 +455,7 @@ class PsychoPyScreen(BaseScreen):
 			align = 'left'
 
 		colour = rgb2psychorgb(colour)
-		pos = pos2psychopos(pos,dispsize=self.dispsize)
+		pos = pos2psychopos(pos, dispsize=self.dispsize)
 
 		self.screen.append(TextStim(pygaze.expdisplay, text=str(text), font=font, pos=pos, color=colour, height=fontsize, antialias=antialias, alignHoriz=align, fontFiles=pygaze.FONTFILES, wrapWidth=None))
 	
@@ -482,7 +482,7 @@ class PsychoPyScreen(BaseScreen):
 		if pos == None:
 			pos = (self.dispsize[0]/2, self.dispsize[1]/2)
 		
-		pos = pos2psychopos(pos,dispsize=self.dispsize)
+		pos = pos2psychopos(pos, dispsize=self.dispsize)
 		
 		if scale == None:
 			imgsize = None

@@ -69,7 +69,7 @@ class FRL:
 		self.frlxdis = ((self.dist**2)/2)**0.5 # horizontal distance between gaze position and FRL-centre
 		self.frlydis = ((self.dist**2)/2)**0.5 # vertical distance between gaze position and FRL-centre
 		# FRL position
-		if pos in ['center','centre']:
+		if pos in ['center', 'centre']:
 			self.frlcor = (0, 0)
 		elif pos == 'top':
 			self.frlcor = (0, -self.dist)
@@ -88,10 +88,10 @@ class FRL:
 		elif pos == 'topleft':
 			self.frlcor = (self.frlxdis, self.frlydis)
 		else:
-			print("WARNING! plugins.frl.__init__: FRL position argument '%s' not recognized; FRL position set to 'centre'." % pos)
+			print(("WARNING! plugins.frl.__init__: FRL position argument '%s' not recognized; FRL position set to 'centre'." % pos))
 			self.frlcor = (0, 0)
 
-		if disptype in ['pygame','psychopy']:
+		if disptype in ['pygame', 'psychopy']:
 			self.disptype = disptype
 		else:
 			raise Exception("Error in plugins.frl.__init__: disptype '%s' not recognized" % disptype)
@@ -146,27 +146,27 @@ class PyGameFRL:
 		display.fill()
 		
 		# draw new FRL
-		r = self.size/2
+		r = int(self.size/2)
 		h = 1 # pixel, updaterectheight (FRL actually consists of a stack of rectangles, h is the height of an individual rectangle)
 		# top side
-		for y in range(0,r):
+		for y in range(0, r):
 			# right end of rectangle
 			y = r - y # reverse y
 			x = (r**2-y**2)**0.5
 			# rectangle coordinates
-			updaterect = [frlpos[0]-x,frlpos[1]-h*y,2*x,h]
+			updaterect = [frlpos[0]-x, frlpos[1]-h*y, 2*x, h]
 			# update screen part
 			pygaze.expdisplay.set_clip(updaterect)
-			pygaze.expdisplay.blit(stimscreen.screen,(0,0))
+			pygaze.expdisplay.blit(stimscreen.screen, (0, 0))
 		# bottom side
-		for y in range(0,r+1):
+		for y in range(0, r+1):
 			# right end of rectangle
 			x = (r**2-y**2)**0.5
 			# rectangle coordinates
-			updaterect = [frlpos[0]-x,frlpos[1]+h*y,2*x,h]
+			updaterect = [frlpos[0]-x, frlpos[1]+h*y, 2*x, h]
 			# update screen part
 			pygaze.expdisplay.set_clip(updaterect)
-			pygaze.expdisplay.blit(stimscreen.screen,(0,0))
+			pygaze.expdisplay.blit(stimscreen.screen, (0, 0))
 
 		# unset clip and update display
 		pygaze.expdisplay.set_clip(None)

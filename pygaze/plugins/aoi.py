@@ -40,7 +40,7 @@ class AOI:
 		"""
 		
 		# check AOI type
-		if aoitype not in ['rect','rectangle','circle','ellipse']:
+		if aoitype not in ['rect', 'rectangle', 'circle', 'ellipse']:
 			raise Exception("Error in libgazecon.AOI.__init__: aoitype %s not recognized; use one of 'rectangle', 'circle', 'ellipse'" % aoitype)
 		self.aoitype = aoitype
 		
@@ -51,15 +51,15 @@ class AOI:
 			self.pos = pos
 		
 		# check AOI size
-		if type(size) in [int,float]:
+		if type(size) in [int, float]:
 			size = [size, size]
-		elif type(size) == tuple:
-			size = [size[0],size[1]]
-		elif type(size) == list:
+		elif isinstance(size, tuple):
+			size = [size[0], size[1]]
+		elif isinstance(size, list):
 			pass
 		else:
 			raise Exception("Error in libgazecon.AOI.__init__: size should be either an integer value or a [width,height] list of integer values")
-		self.size = [int(size[0]),int(size[1])]
+		self.size = [int(size[0]), int(size[1])]
 		
 		# check if aoitype and size match
 		if self.aoitype == 'circle' and self.size[0] != self.size[1]:

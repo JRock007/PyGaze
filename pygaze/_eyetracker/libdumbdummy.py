@@ -38,7 +38,7 @@ def message(msg):
 	
 	"""Prints a timestamp and message to the console"""
 	
-	print(u"%d\t%s" % (int(clock.get_time()), msg))
+	print(("%d\t%s" % (int(clock.get_time()), msg)))
 
 class DumbDummy(BaseEyeTracker):
 
@@ -78,28 +78,28 @@ class DumbDummy(BaseEyeTracker):
 
 		"""Dummy command, messages command instead of sending it to the eyetracker"""
 
-		message(u"The following command would have been given to the eyetracker: " + safe_decode(cmd))
+		message("The following command would have been given to the eyetracker: " + safe_decode(cmd))
 
 
 	def log(self, msg):
 
 		"""Dummy log message, messages message instead of sending it to the eyetracker"""
 
-		message(u"The following message would have been logged to the EDF: " + safe_decode(msg))
+		message("The following message would have been logged to the EDF: " + safe_decode(msg))
 
 
 	def log_var(self, var, val):
 
 		"""Dummy varlog, messages variable and value instead of sending it to the eyetracker"""
 
-		message(u"The following variable would have been logged to the EDF: " + safe_decode(var) + u", value: " + safe_decode(val))
+		message("The following variable would have been logged to the EDF: " + safe_decode(var) + ", value: " + safe_decode(val))
 
 
 	def status_msg(self, msg):
 		
 		"""Dummy status message, messages message instead of sending it to the eyetracker"""
 
-		message(u"The following status message would have been visible on the experimentor PC: " + safe_decode(msg))
+		message("The following status message would have been visible on the experimentor PC: " + safe_decode(msg))
 
 
 	def connected(self):
@@ -189,7 +189,7 @@ class DumbDummy(BaseEyeTracker):
 
 		"""Returns dummy gaze position"""
 
-		return (19,19)
+		return (19, 19)
 
 
 	def wait_for_event(self, event):
@@ -216,7 +216,7 @@ class DumbDummy(BaseEyeTracker):
 
 		"""Returns starting time and starting position when a simulated saccade is started"""
 
-		return clock.get_time(), (19,19)
+		return clock.get_time(), (19, 19)
 
 
 	def wait_for_saccade_end(self):
@@ -229,14 +229,14 @@ class DumbDummy(BaseEyeTracker):
 
 		stime, spos = self.wait_for_saccade_start()
 
-		return clock.get_time(), spos, (190,190)
+		return clock.get_time(), spos, (190, 190)
 
 
 	def wait_for_fixation_start(self):
 
 		"""Returns starting time and position when a simulated fixation is started"""
 
-		return clock.get_time(), (19,19)
+		return clock.get_time(), (19, 19)
 
 
 	def wait_for_fixation_end(self):
@@ -252,11 +252,11 @@ class DumbDummy(BaseEyeTracker):
 
 		"""Returns starting time and position of a simulated blink"""
 
-		return clock.get_time(), (19,19)
+		return clock.get_time(), (19, 19)
 
 
 	def wait_for_blink_end(self):
 
 		"""Returns ending time and position of a simulated blink (mousebuttonup)"""
 		
-		return clock.get_time(), (19,19)
+		return clock.get_time(), (19, 19)

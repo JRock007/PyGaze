@@ -103,7 +103,7 @@ class PyGameScreen(BaseScreen):
 		self.screen.fill(self.bgc)
 
 		if screen != None:
-			self.screen.blit(screen.screen,(0,0))
+			self.screen.blit(screen.screen, (0, 0))
 
 
 	def clear(self, colour=None):
@@ -175,7 +175,7 @@ class PyGameScreen(BaseScreen):
 		if fill:
 			pw = 0
 
-		pygame.draw.circle(self.screen, colour, (int(pos[0]),int(pos[1])), int(r), int(pw))
+		pygame.draw.circle(self.screen, colour, (int(pos[0]), int(pos[1])), int(r), int(pw))
 		
 
 	def draw_ellipse(self, colour=None, x=None, y=None, w=50, h=50, pw=1, fill=False):
@@ -218,7 +218,7 @@ class PyGameScreen(BaseScreen):
 		if fill:
 			pw = 0
 
-		pygame.draw.ellipse(self.screen, colour, [int(x),int(y),int(w),int(h)], int(pw))
+		pygame.draw.ellipse(self.screen, colour, [int(x), int(y), int(w), int(h)], int(pw))
 
 		
 	def draw_rect(self, colour=None, x=None, y=None, w=50, h=50, pw=1, fill=False):
@@ -257,7 +257,7 @@ class PyGameScreen(BaseScreen):
 		if fill:
 			pw = 0
 
-		pygame.draw.rect(self.screen, colour, [int(x),int(y),int(w),int(h)], int(pw))
+		pygame.draw.rect(self.screen, colour, [int(x), int(y), int(w), int(h)], int(pw))
 
 	def draw_line(self, colour=None, spos=None, epos=None, pw=1):
 
@@ -290,7 +290,7 @@ class PyGameScreen(BaseScreen):
 		if epos == None:
 			epos = (int(self.dispsize[0]*0.75), self.dispsize[1]/2)
 
-		pygame.draw.line(self.screen, colour, (int(spos[0]),int(spos[1])), (int(epos[0]),int(epos[1])), int(pw))
+		pygame.draw.line(self.screen, colour, (int(spos[0]), int(spos[1])), (int(epos[0]), int(epos[1])), int(pw))
 
 
 	def draw_polygon(self, pointlist, colour=None, pw=1, fill=True):
@@ -321,7 +321,7 @@ class PyGameScreen(BaseScreen):
 			pw = 0
 		
 		for i in range(len(pointlist)):
-			pointlist[i] = [int(pointlist[i][0]),int(pointlist[i][1])]
+			pointlist[i] = [int(pointlist[i][0]), int(pointlist[i][1])]
 
 		pygame.draw.polygon(self.screen, colour, pointlist, int(pw))
 
@@ -355,7 +355,7 @@ class PyGameScreen(BaseScreen):
 				   self.screen property
 		"""
 
-		if fixtype not in ['cross','x','dot']:
+		if fixtype not in ['cross', 'x', 'dot']:
 			fixtype == 'cross'
 			raise Exception("Error in libscreen.Screen.draw_fixation: fixtype %s not recognized; fixtype should be one of 'cross','x','dot'" % fixtype)
 		if colour == None:
@@ -363,7 +363,7 @@ class PyGameScreen(BaseScreen):
 		if pos == None:
 			pos = (self.dispsize[0]/2, self.dispsize[1]/2)
 		
-		pos = [int(pos[0]),int(pos[1])]
+		pos = [int(pos[0]), int(pos[1])]
 		r = int(diameter/2)
 		pw = int(pw)
 
@@ -421,7 +421,7 @@ class PyGameScreen(BaseScreen):
 		
 		fontname = os.path.join(pygaze.FONTDIR, font) + '.ttf'
 		if not os.path.isfile(fontname):
-			print("WARNING: screen.Screen: could not find font '%s'; using default instead" % fontname)
+			print(("WARNING: screen.Screen: could not find font '%s'; using default instead" % fontname))
 			font = pygame.font.get_default_font()
 		if os.path.isfile(fontname):			
 			font = pygame.font.Font(fontname, fontsize)
@@ -431,7 +431,7 @@ class PyGameScreen(BaseScreen):
 		lines = text.split("\n")
 		lineh = font.get_linesize()
 		
-		for lnr in range(0,len(lines)):
+		for lnr in range(0, len(lines)):
 			txtsurf = font.render(lines[lnr], antialias, colour)
 			if center and len(lines) == 1:
 				linepos = (pos[0] - font.size(lines[lnr])[0]/2, pos[1] - font.size(lines[lnr])[1]/2)
@@ -439,7 +439,7 @@ class PyGameScreen(BaseScreen):
 				linepos = (pos[0] - font.size(lines[lnr])[0]/2, pos[1] + lineh * (2 * (lnr - (len(lines)/2.0) + 0.5)))
 			else:
 				linepos = (pos[0], pos[1] + 2 * lnr)
-			self.screen.blit(txtsurf, (int(linepos[0]),int(linepos[1])))
+			self.screen.blit(txtsurf, (int(linepos[0]), int(linepos[1])))
 	
 	
 	def draw_image(self, image, pos=None, scale=None):
@@ -467,7 +467,7 @@ class PyGameScreen(BaseScreen):
 			pos = (self.dispsize[0]/2, self.dispsize[1]/2)
 		
 		# check if image is a path name
-		if type(image) in [str, unicode]:
+		if type(image) in [str, str]:
 			# check if the image file exists
 			if os.path.isfile(image):
 				# load image from file
@@ -479,14 +479,14 @@ class PyGameScreen(BaseScreen):
 				raise Exception("Error in libscreen.PyGameScreen.draw_image: path %s is not a file!" % image)
 		
 		# check if image is a PyGame Surface
-		elif type(image) == pygame.Surface:
+		elif isinstance(image, pygame.Surface):
 			# since image is already a PyGame Surface, we needn't do anything with it
 			img = image
 		# finally, try if the image is supported by PIL
 		else:
 			try:
 				# PIL Image to PyGame Surface
-				img = pygame.image.fromstring(image.tostring(), (image.size[0],image.size[1]), 'RGB', False)
+				img = pygame.image.fromstring(image.tostring(), (image.size[0], image.size[1]), 'RGB', False)
 			except:
 				raise Exception("Error in libscreen.PyGameScreen.draw_image: image format not recognized!")
 		

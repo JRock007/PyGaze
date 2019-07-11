@@ -87,7 +87,7 @@ class PyGameMouse(BaseMouse):
 		pygame.mouse.set_visible(visible)
 
 
-	def set_pos(self, pos=(0,0)):
+	def set_pos(self, pos=(0, 0)):
 
 		# See _mouse.basemouse.BaseMouse
 

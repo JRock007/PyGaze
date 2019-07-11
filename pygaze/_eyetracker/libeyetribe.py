@@ -44,7 +44,7 @@ import math
 import random
 
 # external imports
-from pytribe import EyeTribe
+from .pytribe import EyeTribe
 
 
 def deg2pix(cmdist, angle, pixpercm):
@@ -101,7 +101,7 @@ class EyeTribeTracker(BaseEyeTracker):
 		self.dispsize = settings.DISPSIZE # display size in pixels
 		self.screensize = settings.SCREENSIZE # display size in cm
 		self.kb = Keyboard(keylist=['space', 'escape', 'q'], timeout=1)
-		self.errorbeep = Sound(osc='saw',freq=100, length=100)
+		self.errorbeep = Sound(osc='saw', freq=100, length=100)
 		
 		# output file properties
 		self.outputfile = logfile
@@ -112,7 +112,7 @@ class EyeTribeTracker(BaseEyeTracker):
 		self.errdist = 2 # degrees; maximal error for drift correction
 		self.pxerrdist = 30 # initial error in pixels
 		self.maxtries = 100 # number of samples obtained before giving up (for obtaining accuracy and tracker distance information, as well as starting or stopping recording)
-		self.prevsample = (-1,-1)
+		self.prevsample = (-1, -1)
 		self.prevps = -1
 		
 		# event detection properties
@@ -134,8 +134,8 @@ class EyeTribeTracker(BaseEyeTracker):
 
 		# initiation report
 		self.log("pygaze initiation report start")
-		self.log("display resolution: %sx%s" % (self.dispsize[0],self.dispsize[1]))
-		self.log("display size in cm: %sx%s" % (self.screensize[0],self.screensize[1]))
+		self.log("display resolution: %sx%s" % (self.dispsize[0], self.dispsize[1]))
+		self.log("display size in cm: %sx%s" % (self.screensize[0], self.screensize[1]))
 		self.log("samplerate: %.2f Hz" % self.samplerate)
 		self.log("sampletime: %.2f ms" % self.sampletime)
 		self.log("fixation threshold: %s degrees" % self.fixtresh)
@@ -164,9 +164,9 @@ class EyeTribeTracker(BaseEyeTracker):
 		# CALIBRATION
 		# determine the calibration points
 		calibpoints = []
-		for x in [0.1,0.5,0.9]:
-			for y in [0.1,0.5,0.9]:
-				calibpoints.append((int(x*self.dispsize[0]),int(y*self.dispsize[1])))
+		for x in [0.1, 0.5, 0.9]:
+			for y in [0.1, 0.5, 0.9]:
+				calibpoints.append((int(x*self.dispsize[0]), int(y*self.dispsize[1])))
 		random.shuffle(calibpoints)
 		
 		# show a message
@@ -225,7 +225,7 @@ class EyeTribeTracker(BaseEyeTracker):
 				clock.pause(settings.EYETRIBEPRECALIBDUR)
 				# start calibration of point
 				self.eyetribe._lock.acquire(True)
-				self.eyetribe.calibration.pointstart(cpos[0],cpos[1])
+				self.eyetribe.calibration.pointstart(cpos[0], cpos[1])
 				self.eyetribe._lock.release()
 				# wait for a second
 				clock.pause(settings.EYETRIBECALIBDUR)
@@ -234,7 +234,7 @@ class EyeTribeTracker(BaseEyeTracker):
 				self.eyetribe.calibration.pointend()
 				self.eyetribe._lock.release()
 				# check if the Q key has been pressed
-				if self.kb.get_key(keylist=['q'],timeout=10,flush=False)[0] == 'q':
+				if self.kb.get_key(keylist=['q'], timeout=10, flush=False)[0] == 'q':
 					# abort calibration
 					self.eyetribe._lock.acquire(True)
 					self.eyetribe.calibration.abort()
@@ -253,7 +253,7 @@ class EyeTribeTracker(BaseEyeTracker):
 				self.disp.fill(self.screen)
 				self.disp.show()
 				# get input
-				key, keytime = self.kb.get_key(keylist=['q','space'], timeout=None, flush=True)
+				key, keytime = self.kb.get_key(keylist=['q', 'space'], timeout=None, flush=True)
 				if key == 'space':
 					# unset quited Boolean
 					quited = False
@@ -275,7 +275,7 @@ class EyeTribeTracker(BaseEyeTracker):
 			# clear the screen
 			self.screen.clear()
 			# draw results for each point
-			if type(calibresult) == dict:
+			if isinstance(calibresult, dict):
 				for p in calibresult['calibpoints']:
 					# only draw the point if data was obtained
 					if p['state'] > 0:
@@ -283,21 +283,21 @@ class EyeTribeTracker(BaseEyeTracker):
 						# self.screen.draw_circle(colour=(252,233,79),
 						# 	pos=(p['cpx'],p['cpy']), r=p['mepix'], pw=0,
 						# 	fill=True)
-						self.screen.draw_line(spos=(p['cpx'],p['cpy']),
-							epos=(p['mecpx'],p['mecpy']), pw=2)
+						self.screen.draw_line(spos=(p['cpx'], p['cpy']),
+							epos=(p['mecpx'], p['mecpy']), pw=2)
 						# draw the point
 						self.screen.draw_fixation(fixtype='dot',
-							colour=(115,210,22), pos=(p['cpx'],p['cpy']))
+							colour=(115, 210, 22), pos=(p['cpx'], p['cpy']))
 						# draw the estimated point
 						self.screen.draw_fixation(fixtype='dot',
-							colour=(32,74,135), pos=(p['mecpx'],p['mecpy']))
+							colour=(32, 74, 135), pos=(p['mecpx'], p['mecpy']))
 						# annotate accuracy
 						self.screen.draw_text(text='%.2f' % p['acd'],
-							pos=(p['cpx']+10,p['cpy']+10), fontsize=20)
+							pos=(p['cpx']+10, p['cpy']+10), fontsize=20)
 					# if no data was obtained, draw the point in red
 					else:
 						self.screen.draw_fixation(fixtype='dot',
-							colour=(204,0,0), pos=(p['cpx'],p['cpy']))
+							colour=(204, 0, 0), pos=(p['cpx'], p['cpy']))
 				# draw box for averages
 				# self.screen.draw_rect(colour=(238,238,236), x=int(self.dispsize[0]*0.15), y=int(self.dispsize[1]*0.2), w=400, h=200, pw=0, fill=True)
 				# draw result
@@ -309,17 +309,17 @@ class EyeTribeTracker(BaseEyeTracker):
 				else:
 					self.screen.draw_text(text="Calibration failed",
 						colour='red',
-						pos=(int(self.dispsize[0]*0.5),int(self.dispsize[1]*0.25)),
+						pos=(int(self.dispsize[0]*0.5), int(self.dispsize[1]*0.25)),
 						fontsize=20)
 				# draw average accuracy
 				self.screen.draw_text(
 					text="Average error = %.2f degrees" % (calibresult['deg']),
-					pos=(int(self.dispsize[0]*0.5),int(self.dispsize[1]*0.25+30)),
+					pos=(int(self.dispsize[0]*0.5), int(self.dispsize[1]*0.25+30)),
 					fontsize=20)
 				# draw input options
 				self.screen.draw_text(
 					text="Press Space to continue or 'R' to restart",
-					pos=(int(self.dispsize[0]*0.5),int(self.dispsize[1]*0.25+60)),
+					pos=(int(self.dispsize[0]*0.5), int(self.dispsize[1]*0.25+60)),
 					fontsize=20)
 			else:
 				self.screen.draw_text(
@@ -329,7 +329,7 @@ class EyeTribeTracker(BaseEyeTracker):
 			self.disp.fill(self.screen)
 			self.disp.show()
 			# wait for input
-			key, keytime = self.kb.get_key(keylist=['space','r'], timeout=None,
+			key, keytime = self.kb.get_key(keylist=['space', 'r'], timeout=None,
 				flush=True)
 			# process input
 			if key == 'space':
@@ -357,18 +357,18 @@ class EyeTribeTracker(BaseEyeTracker):
 		pixpercm = (self.dispsize[0]/float(self.screensize[0]) + self.dispsize[1]/float(self.screensize[1])) / 2
 		screendist = settings.SCREENDIST
 		# calculate thresholds based on tracker settings
-		self.accuracy = ((calibresult['Ldeg'],calibresult['Ldeg']), (calibresult['Rdeg'],calibresult['Rdeg'])) 
+		self.accuracy = ((calibresult['Ldeg'], calibresult['Ldeg']), (calibresult['Rdeg'], calibresult['Rdeg'])) 
 		self.pxerrdist = deg2pix(screendist, self.errdist, pixpercm)
 		self.pxfixtresh = deg2pix(screendist, self.fixtresh, pixpercm)
-		self.pxaccuracy = ((deg2pix(screendist, self.accuracy[0][0], pixpercm),deg2pix(screendist, self.accuracy[0][1], pixpercm)), (deg2pix(screendist, self.accuracy[1][0], pixpercm),deg2pix(screendist, self.accuracy[1][1], pixpercm)))
+		self.pxaccuracy = ((deg2pix(screendist, self.accuracy[0][0], pixpercm), deg2pix(screendist, self.accuracy[0][1], pixpercm)), (deg2pix(screendist, self.accuracy[1][0], pixpercm), deg2pix(screendist, self.accuracy[1][1], pixpercm)))
 		self.pxspdtresh = deg2pix(screendist, self.spdtresh/1000.0, pixpercm) # in pixels per millisecond
 		self.pxacctresh = deg2pix(screendist, self.accthresh/1000.0, pixpercm) # in pixels per millisecond**2
 
 		# calibration report
 		self.log("pygaze calibration report start")
-		self.log("accuracy (degrees): LX=%s, LY=%s, RX=%s, RY=%s" % (self.accuracy[0][0],self.accuracy[0][1],self.accuracy[1][0],self.accuracy[1][1]))
-		self.log("accuracy (in pixels): LX=%s, LY=%s, RX=%s, RY=%s" % (self.pxaccuracy[0][0],self.pxaccuracy[0][1],self.pxaccuracy[1][0],self.pxaccuracy[1][1]))
-		self.log("precision (RMS noise in pixels): X=%s, Y=%s" % (self.pxdsttresh[0],self.pxdsttresh[1]))
+		self.log("accuracy (degrees): LX=%s, LY=%s, RX=%s, RY=%s" % (self.accuracy[0][0], self.accuracy[0][1], self.accuracy[1][0], self.accuracy[1][1]))
+		self.log("accuracy (in pixels): LX=%s, LY=%s, RX=%s, RY=%s" % (self.pxaccuracy[0][0], self.pxaccuracy[0][1], self.pxaccuracy[1][0], self.pxaccuracy[1][1]))
+		self.log("precision (RMS noise in pixels): X=%s, Y=%s" % (self.pxdsttresh[0], self.pxdsttresh[1]))
 		self.log("distance between participant and display: %s cm" % screendist)
 		self.log("fixation threshold: %s pixels" % self.pxfixtresh)
 		self.log("speed threshold: %s pixels/ms" % self.pxspdtresh)
@@ -468,7 +468,7 @@ class EyeTribeTracker(BaseEyeTracker):
 		"""
 		
 		self.screen.clear()
-		self.screen.draw_fixation(fixtype='dot', colour=settings.FGC, pos=(x,y),
+		self.screen.draw_fixation(fixtype='dot', colour=settings.FGC, pos=(x, y),
 			pw=0, diameter=12)
 		self.disp.fill(self.screen)
 		self.disp.show()			
@@ -514,7 +514,7 @@ class EyeTribeTracker(BaseEyeTracker):
 		while len(lx) < min_samples:
 
 			# pressing escape enters the calibration screen
-			if self.kb.get_key()[0] in ['escape','q']:
+			if self.kb.get_key()[0] in ['escape', 'q']:
 				print("libeyetribe.EyeTribeTracker.fix_triggered_drift_correction: 'q' or 'escape' pressed")
 				return self.calibrate()
 
@@ -616,8 +616,8 @@ class EyeTribeTracker(BaseEyeTracker):
 		s = self.eyetribe.sample()
 		
 		# invalid data
-		if s == (None,None):
-			return (-1,-1)
+		if s == (None, None):
+			return (-1, -1)
 		
 		# check if the new sample is the same as the previous
 		if s != self.prevsample:
@@ -703,10 +703,10 @@ class EyeTribeTracker(BaseEyeTracker):
 						available for saccade detection
 		"""
 		
-		if eventdetection in ['pygaze','native']:
+		if eventdetection in ['pygaze', 'native']:
 			self.eventdetection = eventdetection
 		
-		return ('pygaze','pygaze','pygaze')
+		return ('pygaze', 'pygaze', 'pygaze')
 
 
 	def wait_for_event(self, event):
@@ -1108,7 +1108,7 @@ class EyeTribeTracker(BaseEyeTracker):
 		"""
 		
 		# return False if a sample is invalid
-		if gazepos == (None,None) or gazepos == (-1,-1):
+		if gazepos == (None, None) or gazepos == (-1, -1):
 			return False
 		
 		# in any other case, the sample is valid

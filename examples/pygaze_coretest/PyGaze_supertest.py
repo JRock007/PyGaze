@@ -44,7 +44,7 @@ disp = Display()
 scr = Screen()
 
 # initialize a keyboard
-kb = Keyboard(keylist=['space'],timeout=None)
+kb = Keyboard(keylist=['space'], timeout=None)
 
 # initialize a mouse
 mouse = Mouse(mousebuttonlist=None, timeout=None)
@@ -98,7 +98,7 @@ if you press Space, the test will advance to the next phase! \
 disp.fill(scr)
 t1 = disp.show()
 log.write(["Keyboard", t1])
-kb.set_keylist(keylist=['1','5','e','s','left','space'])
+kb.set_keylist(keylist=['1', '5', 'e', 's', 'left', 'space'])
 kb.set_timeout(timeout=0.1)
 key, presstime = kb.get_key()
 kb.set_timeout(timeout=None)
@@ -128,8 +128,8 @@ kb.get_key()
 scr.clear()
 scr.draw_text("There should be two circles on the screen: \
 \nred filled on the left, and green unfilled on the right", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
-scr.draw_circle(colour=(255,0,0), pos=(DISPSIZE[0]*0.25,DISPSIZE[1]/2), r=DISPSIZE[0]/10, pw=5, fill=True)
-scr.draw_circle(colour=(0,255,0), pos=(DISPSIZE[0]*0.75,DISPSIZE[1]/2), r=DISPSIZE[0]/10, pw=5, fill=False)
+scr.draw_circle(colour=(255, 0, 0), pos=(DISPSIZE[0]*0.25, DISPSIZE[1]/2), r=DISPSIZE[0]/10, pw=5, fill=True)
+scr.draw_circle(colour=(0, 255, 0), pos=(DISPSIZE[0]*0.75, DISPSIZE[1]/2), r=DISPSIZE[0]/10, pw=5, fill=False)
 disp.fill(scr)
 disp.show()
 kb.get_key()
@@ -138,8 +138,8 @@ kb.get_key()
 scr.clear()
 scr.draw_text("There should be two ellipses on the screen: \
 \nred filled on the left, and green unfilled on the right", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
-scr.draw_ellipse(colour=(255,0,0), x=DISPSIZE[0]*0.25, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=True)
-scr.draw_ellipse(colour=(0,255,0), x=DISPSIZE[0]*0.75, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=False)
+scr.draw_ellipse(colour=(255, 0, 0), x=DISPSIZE[0]*0.25, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=True)
+scr.draw_ellipse(colour=(0, 255, 0), x=DISPSIZE[0]*0.75, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=False)
 disp.fill(scr)
 disp.show()
 kb.get_key()
@@ -148,8 +148,8 @@ kb.get_key()
 scr.clear()
 scr.draw_text("There should be two rectangles on the screen: \
 \nred filled on the left, and green unfilled on the right", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
-scr.draw_rect(colour=(255,0,0), x=DISPSIZE[0]*0.25, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=True)
-scr.draw_rect(colour=(0,255,0), x=DISPSIZE[0]*0.75, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=False)
+scr.draw_rect(colour=(255, 0, 0), x=DISPSIZE[0]*0.25, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=True)
+scr.draw_rect(colour=(0, 255, 0), x=DISPSIZE[0]*0.75, y=DISPSIZE[1]/2, w=DISPSIZE[0]/10, h=DISPSIZE[0]/5, pw=5, fill=False)
 disp.fill(scr)
 disp.show()
 kb.get_key()
@@ -158,9 +158,9 @@ kb.get_key()
 scr.clear()
 scr.draw_text("There should be three lines on the screen: \
 \nred oblique on the left, green horizontal in the centre, and blue vertical on the right", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
-scr.draw_line(colour=(255,0,0), spos=(DISPSIZE[0]*0.20,DISPSIZE[1]*0.45), epos=(DISPSIZE[0]*0.30,DISPSIZE[1]*0.55), pw=5)
-scr.draw_line(colour=(0,255,0), spos=(DISPSIZE[0]*0.45,DISPSIZE[1]/2), epos=(DISPSIZE[0]*0.55,DISPSIZE[1]/2), pw=5)
-scr.draw_line(colour=(0,0,255), spos=(DISPSIZE[0]*0.75,DISPSIZE[1]*0.45), epos=(DISPSIZE[0]*0.75,DISPSIZE[1]*0.55), pw=5)
+scr.draw_line(colour=(255, 0, 0), spos=(DISPSIZE[0]*0.20, DISPSIZE[1]*0.45), epos=(DISPSIZE[0]*0.30, DISPSIZE[1]*0.55), pw=5)
+scr.draw_line(colour=(0, 255, 0), spos=(DISPSIZE[0]*0.45, DISPSIZE[1]/2), epos=(DISPSIZE[0]*0.55, DISPSIZE[1]/2), pw=5)
+scr.draw_line(colour=(0, 0, 255), spos=(DISPSIZE[0]*0.75, DISPSIZE[1]*0.45), epos=(DISPSIZE[0]*0.75, DISPSIZE[1]*0.55), pw=5)
 disp.fill(scr)
 disp.show()
 kb.get_key()
@@ -170,10 +170,10 @@ scr.clear()
 scr.draw_text("There should be two polygons on the screen: \
 \nred filled triangle on the left, and green unfilled hexagon on the right", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
 pl = [(DISPSIZE[0]*0.25, DISPSIZE[1]*0.45), (DISPSIZE[0]*0.2, DISPSIZE[1]*0.55), (DISPSIZE[0]*0.3, DISPSIZE[1]*0.55)]
-scr.draw_polygon(pl, colour=(255,0,0), pw=5, fill=True)
+scr.draw_polygon(pl, colour=(255, 0, 0), pw=5, fill=True)
 # topleft, topright, centreright, bottomright, bottomleft, centreleft
 pl = [(DISPSIZE[0]*0.70, DISPSIZE[1]*0.40), (DISPSIZE[0]*0.80, DISPSIZE[1]*0.40), (DISPSIZE[0]*0.85, DISPSIZE[1]*0.5), (DISPSIZE[0]*0.80, DISPSIZE[1]*0.60), (DISPSIZE[0]*0.70, DISPSIZE[1]*0.60), (DISPSIZE[0]*0.65, DISPSIZE[1]*0.5)]
-scr.draw_polygon(pl, colour=(0,255,0), pw=5, fill=False)
+scr.draw_polygon(pl, colour=(0, 255, 0), pw=5, fill=False)
 disp.fill(scr)
 disp.show()
 kb.get_key()
@@ -182,9 +182,9 @@ kb.get_key()
 scr.clear()
 scr.draw_text("There should be three fixation targets on the screen: \
 \nred cross on the left, green X in the centre, and blue dot on the right", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
-scr.draw_fixation(fixtype='cross', colour=(255,0,0), pos=(DISPSIZE[0]*0.25,DISPSIZE[1]/2), pw=3, diameter=15)
-scr.draw_fixation(fixtype='x', colour=(0,255,0), pos=(DISPSIZE[0]/2,DISPSIZE[1]/2), pw=3, diameter=15)
-scr.draw_fixation(fixtype='dot', colour=(0,0,255), pos=(DISPSIZE[0]*0.75,DISPSIZE[1]/2), pw=3, diameter=15)
+scr.draw_fixation(fixtype='cross', colour=(255, 0, 0), pos=(DISPSIZE[0]*0.25, DISPSIZE[1]/2), pw=3, diameter=15)
+scr.draw_fixation(fixtype='x', colour=(0, 255, 0), pos=(DISPSIZE[0]/2, DISPSIZE[1]/2), pw=3, diameter=15)
+scr.draw_fixation(fixtype='dot', colour=(0, 0, 255), pos=(DISPSIZE[0]*0.75, DISPSIZE[1]/2), pw=3, diameter=15)
 disp.fill(scr)
 disp.show()
 kb.get_key()
@@ -198,7 +198,7 @@ disp.show()
 kb.get_key()
 
 #scr.set_background_colour()
-scr.set_background_colour(colour=(200,100,100))
+scr.set_background_colour(colour=(200, 100, 100))
 scr.clear()
 scr.draw_text("This screen should a different background colour than the previous screen", pos=(DISPSIZE[0]/2, DISPSIZE[1]/4))
 disp.fill(scr)
@@ -228,7 +228,7 @@ if you press Space, the test will advance to the next phase! \
 \n- mouse.set_timeout")
 disp.fill(scr)
 disp.show()
-mouse.set_mousebuttonlist(mousebuttonlist=[1,2])
+mouse.set_mousebuttonlist(mousebuttonlist=[1, 2])
 mouse.set_timeout(timeout=1)
 button, clickpos, clicktime = mouse.get_clicked()
 key = None
@@ -264,10 +264,10 @@ while not key == 'space':
 	# get new key
 	key, presstime = kb.get_key(timeout=1)
 	# new position
-	x = random.randint(1,DISPSIZE[0]-1)
-	y = random.randint(1,DISPSIZE[1]-1)
+	x = random.randint(1, DISPSIZE[0]-1)
+	y = random.randint(1, DISPSIZE[1]-1)
 	# set mouse position
-	mouse.set_pos(pos=(x,y))
+	mouse.set_pos(pos=(x, y))
 
 #mouse.get_pos()
 scr.clear()
@@ -316,7 +316,7 @@ log.write(["Sound", t1])
 kb.get_key()
 
 # loop through sound waves
-for sound in sounds.keys():
+for sound in list(sounds.keys()):
 	scr.clear()
 	scr.draw_text("You should now hear %s. Press Space to continue." % sound)
 	disp.fill(scr)

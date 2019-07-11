@@ -16,7 +16,7 @@ from pygaze import settings
 disp = libscreen.Display()
 
 # create keyboard object
-kb = libinput.Keyboard(keylist=['left','right','escape'], timeout=2000)
+kb = libinput.Keyboard(keylist=['left', 'right', 'escape'], timeout=2000)
 
 # create logfile object
 log = liblog.Logfile()
@@ -24,25 +24,25 @@ log.write(["trialnr", "trialtype", "response", "RT", "correct"])
 
 # create screens
 fixscreen = libscreen.Screen()
-fixscreen.draw_fixation(fixtype='cross',pw=2)
+fixscreen.draw_fixation(fixtype='cross', pw=2)
 targetscreens = {}
 targetscreens['left'] = libscreen.Screen()
-targetscreens['left'].draw_circle(pos=(settings.DISPSIZE[0]*0.25,settings.DISPSIZE[1]/2), fill=True)
+targetscreens['left'].draw_circle(pos=(settings.DISPSIZE[0]*0.25, settings.DISPSIZE[1]/2), fill=True)
 targetscreens['right'] = libscreen.Screen()
-targetscreens['right'].draw_circle(pos=(settings.DISPSIZE[0]*0.75,settings.DISPSIZE[1]/2), fill=True)
+targetscreens['right'].draw_circle(pos=(settings.DISPSIZE[0]*0.75, settings.DISPSIZE[1]/2), fill=True)
 feedbackscreens = {}
 feedbackscreens[1] = libscreen.Screen()
-feedbackscreens[1].draw_text(text='correct', colour=(0,255,0))
+feedbackscreens[1].draw_text(text='correct', colour=(0, 255, 0))
 feedbackscreens[0] = libscreen.Screen()
-feedbackscreens[0].draw_text(text='incorrect', colour=(255,0,0))
+feedbackscreens[0].draw_text(text='incorrect', colour=(255, 0, 0))
 
 # # # # #
 # run the experiment
 
 # run 20 trials
-for trialnr in range(1,21):
+for trialnr in range(1, 21):
 	# prepare trial
-	trialtype = random.choice(['left','right'])
+	trialtype = random.choice(['left', 'right'])
 	
 	# present fixation
 	disp.fill(screen=fixscreen)

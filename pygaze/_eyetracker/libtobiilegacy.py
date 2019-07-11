@@ -134,7 +134,7 @@ class TobiiTracker(BaseEyeTracker):
 		self.screendist = settings.SCREENDIST # distance between participant and screen in cm
 		self.pixpercm = (self.dispsize[0]/float(self.screensize[0]) + self.dispsize[1]/float(self.screensize[1])) / 2.0
 		self.kb = Keyboard(keylist=['space', 'escape', 'q'], timeout=1)
-		self.errorbeep = Sound(osc='saw',freq=100, length=100)
+		self.errorbeep = Sound(osc='saw', freq=100, length=100)
 		
 		# output file properties
 		self.outputfile = logfile
@@ -151,7 +151,7 @@ class TobiiTracker(BaseEyeTracker):
 		self.errdist = 2 # degrees; maximal error for drift correction
 		self.pxerrdist = deg2pix(self.screendist, self.errdist, self.pixpercm)
 		self.maxtries = 100 # number of samples obtained before giving up (for obtaining accuracy and tracker distance information, as well as starting or stopping recording)
-		self.prevsample = (-1,-1)
+		self.prevsample = (-1, -1)
 
 		# validation properties
 		self.nvalsamples = 1000 # samples for one validation point
@@ -170,12 +170,12 @@ class TobiiTracker(BaseEyeTracker):
 		self.controller = TobiiController(display)
 		self.controller.setDataFile("%s_TOBII_output.tsv" % logfile)
 		self.controller.waitForFindEyeTracker()
-		self.controller.activate(self.controller.eyetrackers.keys()[0])
+		self.controller.activate(list(self.controller.eyetrackers.keys())[0])
 
 		# initiation report
 		self.controller.datafile.write("pygaze initiation report start\n")
-		self.controller.datafile.write("display resolution: %sx%s\n" % (self.dispsize[0],self.dispsize[1]))
-		self.controller.datafile.write("display size in cm: %sx%s\n" % (self.screensize[0],self.screensize[1]))
+		self.controller.datafile.write("display resolution: %sx%s\n" % (self.dispsize[0], self.dispsize[1]))
+		self.controller.datafile.write("display size in cm: %sx%s\n" % (self.screensize[0], self.screensize[1]))
 		self.controller.datafile.write("fixation threshold: %s degrees\n" % self.fixtresh)
 		self.controller.datafile.write("speed threshold: %s degrees/second\n" % self.spdtresh)
 		self.controller.datafile.write("acceleration threshold: %s degrees/second**2\n" % self.accthresh)
@@ -210,7 +210,7 @@ class TobiiTracker(BaseEyeTracker):
 		yc = int(0.5 * self.dispsize[1]) # vertical center
 		bb = int(0.9 * self.dispsize[1]) # bottom bound
 
-		calpos = [(lb,ub), (rb,ub) , (xc,yc), (lb,bb), (rb,bb)]
+		calpos = [(lb, ub), (rb, ub), (xc, yc), (lb, bb), (rb, bb)]
 
 
 		# # # # #
@@ -239,7 +239,7 @@ class TobiiTracker(BaseEyeTracker):
 		self.screen.clear()
 		
 		# wait for spacepress
-		self.kb.get_key(keylist=['space'],timeout=None)
+		self.kb.get_key(keylist=['space'], timeout=None)
 		
 		# start recording
 		self.start_recording()
@@ -265,10 +265,10 @@ class TobiiTracker(BaseEyeTracker):
 			rxsamples = numpy.zeros(self.nvalsamples)
 			rysamples = numpy.zeros(self.nvalsamples)
 			prevsample = ()
-			for i in range(0,self.nvalsamples):
+			for i in range(0, self.nvalsamples):
 				# add new sample to list
 				newsample = self.controller.getCurrentGazePosition()
-				if newsample != prevsample and newsample != (None,None,None,None):
+				if newsample != prevsample and newsample != (None, None, None, None):
 					lx, ly, rx, ry = newsample
 					lxsamples[i] = lx
 					lysamples[i] = ly
@@ -319,13 +319,13 @@ class TobiiTracker(BaseEyeTracker):
 		t0 = clock.get_time() # starting time
 		while clock.get_time() - t0 < 1000:
 			s = self.sample() # sample
-			if s != sl[-1] and s != (-1,-1) and s != (0,0):
+			if s != sl[-1] and s != (-1, -1) and s != (0, 0):
 				sl.append(s)
 
 		# calculate RMS noise
 		Xvar = []
 		Yvar = []
-		for i in range(2,len(sl)):
+		for i in range(2, len(sl)):
 			Xvar.append((sl[i][0]-sl[i-1][0])**2)
 			Yvar.append((sl[i][1]-sl[i-1][1])**2)
 		XRMS = (sum(Xvar) / len(Xvar))**0.5
@@ -339,7 +339,7 @@ class TobiiTracker(BaseEyeTracker):
 		# calculate intersample times
 		t0 = self.controller.gazeData[0].Timestamp
 		ist = numpy.zeros(len(self.controller.gazeData)-1)
-		for i in range(0,len(self.controller.gazeData)-1):
+		for i in range(0, len(self.controller.gazeData)-1):
 			ist[i] = (self.controller.gazeData[i+1].Timestamp - self.controller.gazeData[i].Timestamp) / 1000.0
 		
 		# mean intersample time
@@ -366,8 +366,8 @@ class TobiiTracker(BaseEyeTracker):
 		self.controller.datafile.write("pygaze calibration report start\n")
 		self.controller.datafile.write("samplerate: %s Hz\n" % self.samplerate)
 		self.controller.datafile.write("sampletime: %s ms\n" % self.sampletime)
-		self.controller.datafile.write("accuracy (in pixels): LX=%s, LY=%s, RX=%s, RY=%s\n" % (self.pxaccuracy[0][0],self.pxaccuracy[0][1],self.pxaccuracy[1][0],self.pxaccuracy[1][1]))
-		self.controller.datafile.write("precision (RMS noise in pixels): X=%s, Y=%s\n" % (self.pxdsttresh[0],self.pxdsttresh[1]))
+		self.controller.datafile.write("accuracy (in pixels): LX=%s, LY=%s, RX=%s, RY=%s\n" % (self.pxaccuracy[0][0], self.pxaccuracy[0][1], self.pxaccuracy[1][0], self.pxaccuracy[1][1]))
+		self.controller.datafile.write("precision (RMS noise in pixels): X=%s, Y=%s\n" % (self.pxdsttresh[0], self.pxdsttresh[1]))
 		self.controller.datafile.write("distance between participant and display: %s cm\n" % self.screendist)
 		self.controller.datafile.write("fixation threshold: %s pixels\n" % self.pxfixtresh)
 		self.controller.datafile.write("speed threshold: %s pixels/ms\n" % self.pxspdtresh)
@@ -509,7 +509,7 @@ class TobiiTracker(BaseEyeTracker):
 		while len(lx) < min_samples:
 
 			# pressing escape enters the calibration screen
-			if self.kb.get_key()[0] in ['escape','q']:
+			if self.kb.get_key()[0] in ['escape', 'q']:
 				print("libtobii.TobiiTracker.fix_triggered_drift_correction: 'q' or 'escape' pressed")
 				return self.calibrate(calibrate=True, validate=True)
 
@@ -645,7 +645,7 @@ class TobiiTracker(BaseEyeTracker):
 		
 		# if sample is invalid, return missing value
 		if None in gazepos:
-			return (-1,-1)
+			return (-1, -1)
 		
 		# return gaze x,y
 		if self.eye_used == self.left_eye or self.eye_used == self.binocular:
@@ -773,7 +773,7 @@ class TobiiTracker(BaseEyeTracker):
 		# set event detection methods to PyGaze
 		self.eventdetection = 'pygaze'
 		
-		return (self.eventdetection,self.eventdetection,self.eventdetection)
+		return (self.eventdetection, self.eventdetection, self.eventdetection)
 
 
 	def wait_for_event(self, event):
@@ -1175,7 +1175,7 @@ class TobiiTracker(BaseEyeTracker):
 		"""
 		
 		# return False if a sample is invalid
-		if gazepos == (-1,-1):
+		if gazepos == (-1, -1):
 			return False
 		# sometimes, on Tobii devices, invalid samples are the negative
 		# display resolution value
@@ -1245,7 +1245,7 @@ class TobiiController:
 					self.eyetrackers dict
 		"""
 		
-		while len(self.eyetrackers.keys())==0:
+		while len(list(self.eyetrackers.keys()))==0:
 			pass
 		
 		
@@ -1313,7 +1313,7 @@ class TobiiController:
 	# activation methods
 	############################################################################
 	
-	def activate(self,eyetracker):
+	def activate(self, eyetracker):
 		
 		"""Connects to specified eye tracker
 		
@@ -1330,14 +1330,14 @@ class TobiiController:
 		"""
 		
 		eyetracker_info = self.eyetrackers[eyetracker]
-		print("Connecting to:", eyetracker_info)
+		print(("Connecting to:", eyetracker_info))
 		tobii.eye_tracking_io.eyetracker.Eyetracker.create_async(self.mainloop_thread,
 													 eyetracker_info,
 													 lambda error, eyetracker: self.on_eyetracker_created(error, eyetracker, eyetracker_info))
 		
 		while self.eyetracker==None:
 			pass
-		self.syncmanager = tobii.eye_tracking_io.time.sync.SyncManager(self.clock,eyetracker_info,self.mainloop_thread)
+		self.syncmanager = tobii.eye_tracking_io.time.sync.SyncManager(self.clock, eyetracker_info, self.mainloop_thread)
 		
 		
 	def on_eyetracker_created(self, error, eyetracker, eyetracker_info):
@@ -1361,11 +1361,11 @@ class TobiiController:
 		"""
 		
 		if error:
-			print("WARNING! libtobii.TobiiController.on_eyetracker_created: Connection to %s failed because of an exception: %s" % (eyetracker_info, error))
+			print(("WARNING! libtobii.TobiiController.on_eyetracker_created: Connection to %s failed because of an exception: %s" % (eyetracker_info, error)))
 			if error == 0x20000402:
-				print("WARNING! libtobii.TobiiController.on_eyetracker_created: The selected unit is too old, a unit which supports protocol version 1.0 is required.\n\n<b>Details:</b> <i>%s</i>" % error)
+				print(("WARNING! libtobii.TobiiController.on_eyetracker_created: The selected unit is too old, a unit which supports protocol version 1.0 is required.\n\n<b>Details:</b> <i>%s</i>" % error))
 			else:
-				print("WARNING! libtobii.TobiiController.on_eyetracker_created: Could not connect to %s" % (eyetracker_info))
+				print(("WARNING! libtobii.TobiiController.on_eyetracker_created: Could not connect to %s" % (eyetracker_info)))
 			return False
 		
 		self.eyetracker = eyetracker
@@ -1375,7 +1375,7 @@ class TobiiController:
 	# calibration methods
 	############################################################################
 	
-	def doCalibration(self,calibrationPoints):
+	def doCalibration(self, calibrationPoints):
 		
 		"""Performs a calibration; displaying points and the calibration
 		menu and keyboard input are handled by PyGaze routines, calibration
@@ -1409,13 +1409,13 @@ class TobiiController:
 		self.point_index = -1
 		
 		# visuals
-		img = Image.new('RGB',self.disp.dispsize)
+		img = Image.new('RGB', self.disp.dispsize)
 		draw = ImageDraw.Draw(img)
 		
-		self.calin = {'colour':(0,0,0), 'pos':(int(self.disp.dispsize[0]/2),int(self.disp.dispsize[1]/2)), 'r':2}
-		self.calout = {'colour':(128,255,128), 'pos':(int(self.disp.dispsize[0]/2),int(self.disp.dispsize[1]/2)), 'r':64}
+		self.calin = {'colour':(0, 0, 0), 'pos':(int(self.disp.dispsize[0]/2), int(self.disp.dispsize[1]/2)), 'r':2}
+		self.calout = {'colour':(128, 255, 128), 'pos':(int(self.disp.dispsize[0]/2), int(self.disp.dispsize[1]/2)), 'r':64}
 		self.calresult = {'img':img}
-		self.calresultmsg = {'text':"",'pos':(int(self.disp.dispsize[0]/2),int(self.disp.dispsize[1]/4))}
+		self.calresultmsg = {'text':"",'pos':(int(self.disp.dispsize[0]/2), int(self.disp.dispsize[1]/4))}
 		
 		# start calibration
 		self.initcalibration_completed = False
@@ -1431,7 +1431,7 @@ class TobiiController:
 		self.disp.fill(self.screen)
 		self.disp.show()
 		# wait for start command
-		self.kb.get_key(keylist=['space'],timeout=None)
+		self.kb.get_key(keylist=['space'], timeout=None)
 		
 		# run through all points
 		for self.point_index in range(len(self.points)):
@@ -1440,8 +1440,8 @@ class TobiiController:
 			p = Point2D()
 			p.x, p.y = float(px)/self.disp.dispsize[0], float(py)/self.disp.dispsize[1]
 			# recalculate to psycho coordinates
-			self.calin['pos'] = (int(px),int(py))
-			self.calout['pos'] = (int(px),int(py))
+			self.calin['pos'] = (int(px), int(py))
+			self.calout['pos'] = (int(px), int(py))
 
 			# show target while decreasing its size for 1.5 seconds
 			t0 = clock.get_time()
@@ -1489,7 +1489,7 @@ class TobiiController:
 			pass
 		
 		# fill screen with half-gray
-		self.screen.clear(colour=(128,128,128))
+		self.screen.clear(colour=(128, 128, 128))
 		
 		# show calibration info
 		if not self.computeCalibration_succeeded:
@@ -1510,12 +1510,12 @@ class TobiiController:
 				self.calresultmsg['text'] = 'No ture calibration data (Retry:r/Abort:ESC)'
 			
 			else:
-				for p,d in points.iteritems():
+				for p, d in points.items():
 					if d['left'].status == 1:
-						self.screen.draw_line(colour=(255,0,0), spos=(p.x*self.disp.dispsize[0],p.y*self.disp.dispsize[1]), epos=(d['left'].map_point.x*self.disp.dispsize[0],d['left'].map_point.y*self.disp.dispsize[1]), pw=3)
+						self.screen.draw_line(colour=(255, 0, 0), spos=(p.x*self.disp.dispsize[0], p.y*self.disp.dispsize[1]), epos=(d['left'].map_point.x*self.disp.dispsize[0], d['left'].map_point.y*self.disp.dispsize[1]), pw=3)
 					if d['right'].status == 1:
-						self.screen.draw_line(colour=(0,255,0), spos=(p.x*self.disp.dispsize[0],p.y*self.disp.dispsize[1]), epos=(d['right'].map_point.x*self.disp.dispsize[0],d['right'].map_point.y*self.disp.dispsize[1]), pw=3)
-					self.screen.draw_ellipse(colour=(0,0,0), x=p.x*self.disp.dispsize[0]-10, y=p.y*self.disp.dispsize[1]-10, w=20, h=20, pw=3, fill=False)
+						self.screen.draw_line(colour=(0, 255, 0), spos=(p.x*self.disp.dispsize[0], p.y*self.disp.dispsize[1]), epos=(d['right'].map_point.x*self.disp.dispsize[0], d['right'].map_point.y*self.disp.dispsize[1]), pw=3)
+					self.screen.draw_ellipse(colour=(0, 0, 0), x=p.x*self.disp.dispsize[0]-10, y=p.y*self.disp.dispsize[1]-10, w=20, h=20, pw=3, fill=False)
 
 				self.calresultmsg['text'] = 'Accept calibration results (Accept:a/Retry:r/Abort:ESC)'
 		
@@ -1523,12 +1523,12 @@ class TobiiController:
 		self.calresult['img'] = img
 		
 		# alternative approach (Dalmaijer): use PyGaze drawing operations on self.screen, then present self.screen
-		self.screen.draw_text(text=self.calresultmsg['text'],pos=self.calresultmsg['pos'])
+		self.screen.draw_text(text=self.calresultmsg['text'], pos=self.calresultmsg['pos'])
 		self.disp.fill(self.screen)
 		self.disp.show()
 		
 		# wait for keyboard input
-		key, presstime = self.kb.get_key(keylist=['a','r','escape'], timeout=None)
+		key, presstime = self.kb.get_key(keylist=['a', 'r', 'escape'], timeout=None)
 		if key == 'a':
 			retval = 'accept'
 		elif key == 'r':
@@ -1562,7 +1562,7 @@ class TobiiController:
 		"""
 		
 		if error:
-			print("WARNING! libtobii.TobiiController.on_calib_start: Could not start calibration because of error. (0x%0x)" % error)
+			print(("WARNING! libtobii.TobiiController.on_calib_start: Could not start calibration because of error. (0x%0x)" % error))
 			return False
 		self.initcalibration_completed = True
 	
@@ -1590,7 +1590,7 @@ class TobiiController:
 		"""
 
 		if error:
-			print("WARNING! libtobii.TobiiController.on_add_complete: Add Calibration Point failed because of error. (0x%0x)" % error)
+			print(("WARNING! libtobii.TobiiController.on_add_complete: Add Calibration Point failed because of error. (0x%0x)" % error))
 			return False
 		
 		self.add_point_completed = True
@@ -1625,7 +1625,7 @@ class TobiiController:
 			raise Exception("Error in libtobii.TobiiController.on_calib.compute: CalibCompute failed because not enough data was collected:", error)
 		elif error != 0:
 			self.computeCalibration_succeeded = False
-			print("WARNING! libtobii.TobiiController.on_calib_compute: Could not compute calibration because of a server error.\n\n<b>Details:</b>\n<i>%s</i>" % (error))
+			print(("WARNING! libtobii.TobiiController.on_calib_compute: Could not compute calibration because of a server error.\n\n<b>Details:</b>\n<i>%s</i>" % (error)))
 			raise Exception("Error in libtobii.TobiiController.on_calib.compute: CalibCompute failed because of a server error:", error)
 		else:
 			print("")
@@ -1689,7 +1689,7 @@ class TobiiController:
 		
 		# When the calibration procedure is done we update the calibration plot
 		if not status:
-			print("WARNING! libtobii.TobiiController.on_calib_done: %s" % msg)
+			print(("WARNING! libtobii.TobiiController.on_calib_done: %s" % msg))
 			
 		self.calibration = None
 		return False
@@ -1742,7 +1742,7 @@ class TobiiController:
 		self.gazeData = []
 		self.eventData = []
 	
-	def on_gazedata(self,error,gaze):
+	def on_gazedata(self, error, gaze):
 		
 		"""Adds new data point to the data collection (self.gazeData)
 		
@@ -1759,7 +1759,7 @@ class TobiiController:
 		
 		self.gazeData.append(gaze)
 
-	def getPupilSize(self,gaze):
+	def getPupilSize(self, gaze):
 
 		"""Extracts the pupil size of both eyes from the Tobii gaze struct.
 		
@@ -1792,11 +1792,11 @@ class TobiiController:
 		"""
 
 		if len(self.gazeData) == 0:
-			return (None,None)
+			return (None, None)
 		else:
 			return self.getPupilSize(self.gazeData[-1])
 	
-	def getGazePosition(self,gaze):
+	def getGazePosition(self, gaze):
 		
 		"""Extracts the gaze positions of both eyes from the Tobii gaze
 		struct and recalculates them to PyGaze coordinates
@@ -1834,11 +1834,11 @@ class TobiiController:
 		"""
 		
 		if len(self.gazeData)==0:
-			return (None,None,None,None)
+			return (None, None, None, None)
 		else:
 			return self.getGazePosition(self.gazeData[-1])
 	
-	def setDataFile(self,filename):
+	def setDataFile(self, filename):
 		
 		"""Opens a new textfile and writes date, time and screen resolution
 		to it
@@ -1854,8 +1854,8 @@ class TobiiController:
 		None		--	sets self.datafile to an open textfile
 		"""
 		
-		print('set datafile ' + filename)
-		self.datafile = open(filename,'w')
+		print(('set datafile ' + filename))
+		self.datafile = open(filename, 'w')
 		self.datafile.write('Recording date:\t'+datetime.datetime.now().strftime('%Y/%m/%d')+'\n')
 		self.datafile.write('Recording time:\t'+datetime.datetime.now().strftime('%H:%M:%S')+'\n')
 		self.datafile.write('Recording resolution\t%d x %d\n\n' % tuple(self.disp.dispsize))
@@ -1884,7 +1884,7 @@ class TobiiController:
 		self.datafile = None
 	
 	
-	def recordEvent(self,event):
+	def recordEvent(self, event):
 		
 		"""Adds an event to the event data
 		
@@ -1900,7 +1900,7 @@ class TobiiController:
 		"""
 		
 		t = self.syncmanager.convert_from_local_to_remote(self.clock.get_time())
-		self.eventData.append((t,event))
+		self.eventData.append((t, event))
 	
 	
 	def flushData(self):
@@ -1956,13 +1956,13 @@ class TobiiController:
 			
 			# if no correct sample is available, data is missing
 			if g.LeftValidity == 4 and g.RightValidity == 4: #not detected
-				ave = (-1.0,-1.0)
+				ave = (-1.0, -1.0)
 			# if the right sample is unavailable, use left sample
 			elif g.LeftValidity == 4:
-				ave = (g.RightGazePoint2D.x,g.RightGazePoint2D.y)
+				ave = (g.RightGazePoint2D.x, g.RightGazePoint2D.y)
 			# if the left sample is unavailable, use right sample
 			elif g.RightValidity == 4:
-				ave = (g.LeftGazePoint2D.x,g.LeftGazePoint2D.y)
+				ave = (g.LeftGazePoint2D.x, g.LeftGazePoint2D.y)
 			# if we have both samples, use both samples
 			else:
 				ave = ((g.LeftGazePoint2D.x + g.RightGazePoint2D.x) / 2.0,
@@ -1977,7 +1977,7 @@ class TobiiController:
 		
 		# write all events to the datafile, using the formatstring
 		for e in self.eventData:
-			self.datafile.write(formatstr % ((e[0]-timeStampStart)/1000.0,e[1]))
+			self.datafile.write(formatstr % ((e[0]-timeStampStart)/1000.0, e[1]))
 		
 		# write data to disk
 		self.datafile.flush() # internal buffer to RAM

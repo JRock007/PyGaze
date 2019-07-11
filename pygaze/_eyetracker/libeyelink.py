@@ -124,7 +124,7 @@ class libeyelink(BaseEyeTracker):
 		self.right_eye = 1
 		self.binocular = 2
 		self.pupil_size_mode = pupil_size_mode
-		self.prevsample = (-1,-1)
+		self.prevsample = (-1, -1)
 		self.prevps = -1
 
 		# event detection properties
@@ -249,7 +249,7 @@ class libeyelink(BaseEyeTracker):
 
 		"""See pygaze._eyetracker.baseeyetracker.BaseEyeTracker"""
 
-		print('status message: %s' % msg)
+		print(('status message: %s' % msg))
 		pylink.getEYELINK().sendCommand("record_status_message '%s'" % msg)
 
 	def connected(self):
@@ -322,7 +322,7 @@ class libeyelink(BaseEyeTracker):
 				t0 = clock.get_time() # starting time
 				while clock.get_time() - t0 < 1000:
 					s = self.sample() # sample
-					if s != sl[-1] and s != (-1,-1) and s != (0,0):
+					if s != sl[-1] and s != (-1, -1) and s != (0, 0):
 						sl.append(s)
 		
 				# stop recording
@@ -332,7 +332,7 @@ class libeyelink(BaseEyeTracker):
 				# calculate RMS noise
 				Xvar = []
 				Yvar = []
-				for i in range(2,len(sl)):
+				for i in range(2, len(sl)):
 					Xvar.append((sl[i][0]-sl[i-1][0])**2)
 					Yvar.append((sl[i][1]-sl[i-1][1])**2)
 				if Xvar and Yvar: # check if properly recorded to avoid risk of division by zero error
@@ -357,7 +357,7 @@ class libeyelink(BaseEyeTracker):
 					self.display.show()
 					self.scr.clear()
 					# wait for space or r press, if r restart noise calibration, if space return to calibration menu
-					keypressed = self.kb.get_key(keylist=['space','r'], timeout=None)
+					keypressed = self.kb.get_key(keylist=['space', 'r'], timeout=None)
 					if keypressed[0] == 'space':
 						break
 
@@ -527,9 +527,9 @@ class libeyelink(BaseEyeTracker):
 		i = 0
 		while True:
 			# params: write samples, write event, send samples, send events
-			print(u'starting recording ...')
+			print('starting recording ...')
 			error = pylink.getEYELINK().startRecording(1, 1, 1, 1)
-			print(u'returned %s' % error)
+			print(('returned %s' % error))
 			if not error:
 				break
 			if i > self.MAX_TRY:
@@ -539,33 +539,33 @@ class libeyelink(BaseEyeTracker):
 				self.close()
 				clock.expend()
 			i += 1
-			print(
+			print((
 				("WARNING libeyelink.libeyelink.start_recording(): Failed to "
-				"start recording (attempt %d of %d)") % (i, self.MAX_TRY))
+				"start recording (attempt %d of %d)") % (i, self.MAX_TRY)))
 			pylink.msecDelay(100)
 		# don't know what this is
-		print(u'Start realtime mode ...')
+		print('Start realtime mode ...')
 		pylink.msecDelay(100)
 		pylink.beginRealTimeMode(100)
 		# wait a bit until samples start coming in
-		print(u'Wait for block start ...')
+		print('Wait for block start ...')
 		pylink.msecDelay(100)
 		if not pylink.getEYELINK().waitForBlockStart(100, 1, 0):
 			raise Exception(
 				"Error in libeyelink.libeyelink.start_recording(): Failed to "
 				"start recording (waitForBlockStart error)!")
-		print(u'done ...')
+		print('done ...')
 
 	def stop_recording(self):
 
 		"""See pygaze._eyetracker.baseeyetracker.BaseEyeTracker"""
 
-		print(u'stopping recording ...')
+		print('stopping recording ...')
 		self.recording = False
 		pylink.endRealTimeMode()
 		pylink.getEYELINK().setOfflineMode()
 		pylink.msecDelay(500)
-		print(u'done ...')
+		print('done ...')
 
 	def close(self):
 
@@ -578,8 +578,8 @@ class libeyelink(BaseEyeTracker):
 		print("libeyelink.libeyelink.close(): Closing data file")
 		pylink.getEYELINK().closeDataFile()
 		pylink.msecDelay(500)
-		print("libeyelink.libeyelink.close(): Transferring %s to %s" \
-			% (self.eyelink_data_file, self.local_data_file))
+		print(("libeyelink.libeyelink.close(): Transferring %s to %s" \
+			% (self.eyelink_data_file, self.local_data_file)))
 		# During data transfer, suppress output
 		_out = sys.stdout
 		with open(os.devnull, 'w') as fd:
@@ -654,7 +654,7 @@ class libeyelink(BaseEyeTracker):
 			elif self.eye_used == self.left_eye and s.isLeftSample():
 				gaze = s.getLeftEye().getGaze()
 			else:
-				gaze = (-1,-1)
+				gaze = (-1, -1)
 			self.prevsample = gaze[:]
 		else:
 			gaze = self.prevsample[:]
@@ -664,10 +664,10 @@ class libeyelink(BaseEyeTracker):
 
 		"""See pygaze._eyetracker.baseeyetracker.BaseEyeTracker"""
 
-		if eventdetection in ['pygaze','native']:
+		if eventdetection in ['pygaze', 'native']:
 			self.eventdetection = eventdetection
 
-		return (self.eventdetection,self.eventdetection,self.eventdetection)
+		return (self.eventdetection, self.eventdetection, self.eventdetection)
 
 	def _get_eyelink_clock_async(self):
 		"""
@@ -733,7 +733,7 @@ class libeyelink(BaseEyeTracker):
 		# EyeLink method
 
 		if self.eventdetection == 'native':
-			t,d = self.wait_for_event(pylink.STARTSACC)
+			t, d = self.wait_for_event(pylink.STARTSACC)
 			return t, d.getStartGaze()
 
 
@@ -793,7 +793,7 @@ class libeyelink(BaseEyeTracker):
 		# EyeLink method
 
 		if self.eventdetection == 'native':
-			t,d = self.wait_for_event(pylink.ENDSACC)
+			t, d = self.wait_for_event(pylink.ENDSACC)
 			return t, d.getStartGaze(), d.getEndGaze()
 
 
@@ -852,7 +852,7 @@ class libeyelink(BaseEyeTracker):
 		# EyeLink method
 
 		if self.eventdetection == 'native':
-			t,d = self.wait_for_event(pylink.STARTFIX)
+			t, d = self.wait_for_event(pylink.STARTFIX)
 			return t, d.getTime(), d.getStartGaze()
 
 
@@ -974,7 +974,7 @@ class libeyelink(BaseEyeTracker):
 		# EyeLink method
 
 		if self.eventdetection == 'native':
-			t,d = self.wait_for_event(pylink.ENDBLINK)
+			t, d = self.wait_for_event(pylink.ENDBLINK)
 			return t
 
 
@@ -1025,7 +1025,7 @@ class libeyelink(BaseEyeTracker):
 		"""
 
 		# return False if a sample is invalid
-		if gazepos == (-1,-1):
+		if gazepos == (-1, -1):
 			return False
 
 		# in any other case, the sample is valid
@@ -1051,11 +1051,11 @@ class libeyelink(BaseEyeTracker):
 		yc = settings.DISPSIZE[1]/2
 		xc = settings.DISPSIZE[0]/2
 		ld = 40 # Line height
-		scr.draw_text(u'Really abort experiment?', pos=(xc, yc-3*ld),
+		scr.draw_text('Really abort experiment?', pos=(xc, yc-3*ld),
 			fontsize=self.fontsize)
-		scr.draw_text(u'Press \'Y\' to abort', pos=(xc, yc-0.5*ld),
+		scr.draw_text('Press \'Y\' to abort', pos=(xc, yc-0.5*ld),
 			fontsize=self.fontsize)
-		scr.draw_text(u'Press any other key or wait 5s to go to setup',
+		scr.draw_text('Press any other key or wait 5s to go to setup',
 			pos=(xc, yc+0.5*ld), fontsize=self.fontsize)
 		self.display.fill(scr)
 		self.display.show()
@@ -1065,8 +1065,8 @@ class libeyelink(BaseEyeTracker):
 		except:
 			return False
 		# if confirmation, close experiment
-		if key == u'y':
-			raise Exception(u'The experiment was aborted')
+		if key == 'y':
+			raise Exception('The experiment was aborted')
 		self.eyelink_graphics.esc_pressed = False
 		return False
 
@@ -1082,7 +1082,7 @@ class libeyelink(BaseEyeTracker):
 		"""
 
 		self.scr.clear()
-		self.scr.draw_fixation(fixtype='dot', colour=settings.FGC, pos=(x,y),
+		self.scr.draw_fixation(fixtype='dot', colour=settings.FGC, pos=(x, y),
 			pw=0, diameter=12)
 		self.display.fill(self.scr)
 		self.display.show()

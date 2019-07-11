@@ -30,17 +30,17 @@ log.write(["trialnr", "trialtype", "endpos", "latency", "correct"])
 inscreen = libscreen.Screen()
 inscreen.draw_text(text="When you see a cross, look at it and press space. Then make an eye movement to the black circle when it appears.\n\n(press space to start)", fontsize=24)
 fixscreen = libscreen.Screen()
-fixscreen.draw_fixation(fixtype='cross',pw=3)
+fixscreen.draw_fixation(fixtype='cross', pw=3)
 targetscreens = {}
 targetscreens['left'] = libscreen.Screen()
-targetscreens['left'].draw_circle(pos=(int(constants.DISPSIZE[0]*0.25),constants.DISPSIZE[1]/2), fill=True)
+targetscreens['left'].draw_circle(pos=(int(constants.DISPSIZE[0]*0.25), constants.DISPSIZE[1]/2), fill=True)
 targetscreens['right'] = libscreen.Screen()
-targetscreens['right'].draw_circle(pos=(int(constants.DISPSIZE[0]*0.75),constants.DISPSIZE[1]/2), fill=True)
+targetscreens['right'].draw_circle(pos=(int(constants.DISPSIZE[0]*0.75), constants.DISPSIZE[1]/2), fill=True)
 feedbackscreens = {}
 feedbackscreens[1] = libscreen.Screen()
-feedbackscreens[1].draw_text(text='correct', colour=(0,255,0), fontsize=24)
+feedbackscreens[1].draw_text(text='correct', colour=(0, 255, 0), fontsize=24)
 feedbackscreens[0] = libscreen.Screen()
-feedbackscreens[0].draw_text(text='incorrect', colour=(255,0,0), fontsize=24)
+feedbackscreens[0].draw_text(text='incorrect', colour=(255, 0, 0), fontsize=24)
 
 # # # # #
 # run the experiment
@@ -54,9 +54,9 @@ disp.show()
 keyboard.get_key()
 
 # run 20 trials
-for trialnr in range(1,21):
+for trialnr in range(1, 21):
 	# prepare trial
-	trialtype = random.choice(['left','right'])
+	trialtype = random.choice(['left', 'right'])
 
 	# drift correction
 	checked = False
